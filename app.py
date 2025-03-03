@@ -198,6 +198,13 @@ def package2():
 @app.route('/package3')
 def package3():
     return render_template('package3.html')
+@app.route('/robots.txt')
+def robots_txt():
+    return app.send_static_file('robots.txt')
+@app.route('/sitemap.xml')
+def sitemap():
+    return app.send_static_file('sitemap.xml')
+
 
 @app.route('/admin/update_price', methods=['POST'])
 def update_price():
