@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Sri Shakti</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='images/ram-logo.png') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='home.css') }}"
+    />
+    <link rel="stylesheet" href="../static/home.css" />
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <meta
+      name="description"
+      content="Srishakthi Travels, Lodge, and Celebration Hall in Kanyakumari. Offering comfortable stays, reliable travel services, and spacious event halls for weddings, parties, and corporate functions. Book now for the best hospitality in Kanyakumari."
+    />
+    <meta
+      name="keywords"
+      content="Travels in Kanyakumari, Lodge in Kanyakumari, Celebration Hall Kanyakumari, Best Hotel Kanyakumari, Event Hall Kanyakumari, Srishakthi Travels, Wedding Hall Kanyakumari, Budget Lodge Kanyakumari, Kanyakumari Tourism, Affordable Stays Kanyakumari, Banquet Hall Kanyakumari, Party Hall Kanyakumari, Tourist Lodge Kanyakumari, AC Rooms Kanyakumari, Non-AC Rooms Kanyakumari, Group Stay Kanyakumari, Business Meeting Hall Kanyakumari, Family Stay Kanyakumari, Car Rental Kanyakumari, Tour Packages Kanyakumari, Best Travels Agency Kanyakumari, Sightseeing Kanyakumari, Luxury Hotel Kanyakumari, Conference Hall Kanyakumari, Marriage Hall Kanyakumari, Affordable Lodge Kanyakumari, Tourist Accommodation Kanyakumari"
+    />
+  </head>
+  <body>
+    <a href="https://wa.me/9443580902" class="whatsapp-icon" target="_blank">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+        alt="WhatsApp"
+      />
+    </a>
+    <a href="#" class="scroll-to-top"> &#8679; </a>
+    <nav>
+      <div class="nav__logo">
+        <img
+          src="{{url_for('static',filename='/images/ram-logo.png')}}"
+          alt=""
+          height="100px"
+          width="100px"
+        /><span class="logo-text">SRISHAKTHI</span>
+      </div>
+      <ul class="nav__links">
+        <li class="link"><a href="{{ url_for('home1') }}">Home</a></li>
+        <!-- <li class="link"><a href="#">About</a></li> -->
+        <li class="link"><a href="{{ url_for('rooms') }}">Rooms</a></li>
+        <li class="link"><a href="{{ url_for('events') }}">Events</a></li>
+        <li class="link"><a href="{{ url_for('travel') }}">Travels</a></li>
+        <li class="link">
+          <a href="{{ url_for('facilities') }}">Facilities</a>
+        </li>
+        <li class="link">
+          <a href="{{ url_for('attraction') }}">Attractions</a>
+        </li>
+        <!-- <li class="link"><a href="#">Gallery</a></li>
+        <li class="link"><a href="#">Contact Us</a></li> -->
+        <li class="link" id="attractions">
+          <a href="#">About</a>
+          <ul class="dropdown">
+            <li>
+              <a href="{{ url_for('aboutus') }}"
+                ><i class="fa-solid fa-arrow-right"></i> About Us</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('gallery') }}"
+                ><i class="fa-solid fa-arrow-right"></i> Gallery</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('contact') }}"
+                ><i class="fa-solid fa-arrow-right"></i> Contact Us</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Hamburger Icon -->
+      <div class="hamburger" id="hamburgerIcon">
+        <i class="ri-menu-line"></i>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="close-icon" id="closeIcon">
+          <i class="ri-close-line"></i>
+        </div>
+        <div id="mobile-text">
+          <h3>SRI SHAKTHI</h3>
+          <p>
+            Welcome to Sri Shakthi, your perfect choice for luxury stays,
+            elegant halls, seamless travel, and memorable experiences
+          </p>
+        </div>
+        <ul>
+          <li>
+            <a href="{{ url_for('home1') }}"
+              >Home<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('aboutus') }}"
+              >About<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('rooms') }}"
+              >Rooms<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('events') }}"
+              >Events<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('travel') }}"
+              >Travel<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('facilities') }}"
+              >Facilities<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('attraction') }}"
+              >Attractions<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('gallery') }}"
+              >Gallery<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('contact') }}"
+              >Contact Us<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <header class="section__container header__container">
+      <div class="header__image__container">
+        <div class="header__content">
+          <h1>Your Journey Begins Here</h1>
+          <p>
+            Affordable lodges, seamless travel, and unforgettable experiences.
+          </p>
+        </div>
+        <div class="booking__container">
+          <p>Let’s Connect!</p>
+          <form id="inquiryForm" action="/" method="POST">
+            <div class="form__group">
+              <div class="input__group">
+                <input type="text" name="name" required />
+                <label>Name</label>
+              </div>
+              <p>What should we call you?</p>
+            </div>
+            <div class="form__group">
+              <div class="input__group">
+                <input type="text" name="phone" required />
+                <label>Phone Number</label>
+              </div>
+              <p>Let’s connect!</p>
+            </div>
+            <div class="form__group">
+              <div class="input__group">
+                <input type="email" name="email" required />
+                <label>Mail</label>
+              </div>
+              <p>Share your email!</p>
+            </div>
+            <div class="form__group">
+              <div class="input__group">
+                <input type="text" name="message" required />
+                <label>Message</label>
+              </div>
+              <p>How can we help?</p>
+            </div>
+          </form>
+          <!-- Flash message alert -->
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if
+          messages %}
+          <script type="text/javascript">
+            alert("{{ messages[0][1] }}");
+          </script>
+          {% endif %} {% endwith %}
+          <button class="btn" id="submitBtn">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+    <!-- body cingtent -->
+    <div class="body-one">
+      <h1>WHO WE ARE ?</h1>
+      <p>
+        <span>SRISHAKTHI</span> is a <span>versatile company</span> that offers
+        a range of services to meet diverse customer needs. We take pride in our
+        <span>beautifully designed lodges</span>, offering a comfortable and
+        homely atmosphere for travelers. Our <span>grand Mahals</span> are
+        perfect for hosting celebrations and events, providing elegant spaces
+        for weddings, parties, and other special occasions. Additionally,
+        SriShakti’s <span>travel services</span> ensure a seamless and enjoyable
+        experience for those looking to explore new destinations, with a focus
+        on <span>customer satisfaction</span> and convenience. Whether you're
+        seeking a cozy stay, a memorable event venue, or reliable travel
+        assistance, <span>SriShakti is here </span>to serve you with excellence.
+      </p>
+      <a href="{{ url_for('aboutus') }}">Learn More ></a>
+      <hr />
+    </div>
+    <div class="facility">
+      <div id="facility-head">
+        <h4>Facilities</h4>
+        <h1>Hotel Facilities</h1>
+      </div>
+      <div id="facility-content">
+        <div class="facility-item">
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/7969/7969763.png"
+            alt=""
+            class="facilitis-logo"
+          />
+          <p>Air Conditioning</p>
+        </div>
+        <div class="facility-item">
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/17807/17807797.png"
+            alt=""
+            class="facilitis-logo"
+          />
+          <p>Complementry Wi-Fi</p>
+        </div>
+        <div class="facility-item">
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/2593/2593966.png"
+            alt=""
+            class="facilitis-logo"
+          />
+          <p>Flat-Screen TVs</p>
+        </div>
+        <div class="facility-item">
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/3575/3575841.png"
+            alt=""
+            class="facilitis-logo"
+          />
+          <p>Room Service</p>
+        </div>
+        <div class="facility-item">
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/2176/2176525.png"
+            alt=""
+            class="facilitis-logo"
+          />
+          <p>Modern Bathrooms</p>
+        </div>
+        <div class="facility-item">
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/2642/2642550.png"
+            alt=""
+            class="facilitis-logo"
+          />
+          <p>CCTV Secured</p>
+        </div>
+        <div class="facility-item">
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/3441/3441838.png"
+            alt=""
+            class="facilitis-logo"
+          />
+          <p>Toiletries</p>
+        </div>
+        <div class="facility-item">
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/1941/1941802.png"
+            alt=""
+            class="facilitis-logo"
+          />
+          <p>Kettle</p>
+        </div>
+      </div>
+      <div id="facility-link">
+        <a href="{{ url_for('facilities') }}">view more</a>
+      </div>
+    </div>
+
+    <!-- card -->
+    <div id="event">
+      <div id="event-head">
+        <div id="event-head-right">
+          <h4>Function&Events</h4>
+          <h1>Function& <br />Events</h1>
+        </div>
+        <p>
+          The sophisticated and flexible event spaces at
+          <span>Sri Skathi</span> offer the perfect ambiance for hosting
+          <span>memorable celebrations and gatherings.</span>
+        </p>
+      </div>
+      <div class="carousel-container">
+        <div class="carousel">
+          <div class="card">
+            <p>Birthday Parties</p>
+            <button class="event-btn">
+              <a href="{{ url_for('events') }}">View More</a>
+            </button>
+          </div>
+          <div class="card">
+            <p>Corporate Events</p>
+            <button class="event-btn">
+              <a href="{{ url_for('events') }}">View More</a>
+            </button>
+          </div>
+          <div class="card">
+            <p>wedding Receptions</p>
+            <button class="event-btn">
+              <a href="{{ url_for('events') }}">View More</a>
+            </button>
+          </div>
+          <div class="card">
+            <p>Puberty Functions</p>
+            <button class="event-btn">
+              <a href="{{ url_for('events') }}">View More</a>
+            </button>
+          </div>
+          <div class="card">
+            <p>Engagement Ceremonies</p>
+            <button class="event-btn">
+              <a href="{{ url_for('events') }}">View More</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- for rooms -->
+    <section class="section__container room__container">
+      <p class="section__subheader">OUR ROOMS</p>
+      <h2 class="section__header">The Most Memorable Rest Time Starts Here.</h2>
+      <div class="room__grid">
+        {% for room in rooms %}
+        <div class="room__card">
+          <div class="room__card__image">
+            <img src="{{ room.image_url }}" alt="room" />
+            <div class="room__card__icons">
+              <span><i class="ri-heart-fill"></i></span>
+            </div>
+          </div>
+          <div class="room__card__details">
+            <h4>{{ room.name }}</h4>
+            <p>{{ room.description }}</p>
+            <h5>Starting from <span>Rs:{{ room.price }}/Day</span></h5>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <a id="room-btn" href="{{ url_for('rooms') }}">Learn More></a>
+    </section>
+
+    <!-- travel -->
+    <div id="travel">
+      <div id="left-travel">
+        <h1>Your Next Adventure Starts Here</h1>
+        <h2>Ultimate guide to explore the world</h2>
+        <p>
+          Whether you're a seasoned traveler or setting out on your first
+          expedition, our guide covers everything from must-visit landmarks and
+          hidden gems to practical advice on budgeting, packing, and navigating
+          diverse cultures.
+        </p>
+        <button><a href="{{ url_for('travel') }}">Learn More</a></button>
+      </div>
+      <div id="travel-right">
+        <img
+          src="https://webdesignmastery.github.io/Travel_Hub_13-02-24/assets/guide.png"
+          alt=""
+        />
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="section__container footer__container">
+        <div class="footer__col">
+          <!-- <img src="{{url_for('static',filename='/images/ram-logo.png')}}" alt="" height="100px" width="100px"> -->
+          <h3>SRI SHAKTHI</h3>
+          <p>
+            Welcome to Sri Shakthi, your perfect choice for luxury stays,
+            elegant halls, seamless travel, and memorable experiences
+          </p>
+          <p>Kanyakumari,India</p>
+        </div>
+        <div class="footer__col">
+          <h4>Quick Links</h4>
+          <p><a href="{{ url_for('aboutus') }}">About Us</a></p>
+          <p><a href="{{ url_for('rooms') }}">Rooms&Suites</a></p>
+          <p><a href="{{ url_for('attraction') }}">Local Attractions</a></p>
+          <p><a href="{{ url_for('facilities') }}">Facilities</a></p>
+          <p>
+            <a href="{{ url_for('termsandcondition') }}">Terms And Condition</a>
+          </p>
+        </div>
+        <div class="footer__col">
+          <h4>Guest Services</h4>
+          <p>24/7 Front Desk</p>
+          <p>Parking</p>
+          <p>Room Service</p>
+          <p>Free Wi-Fi</p>
+        </div>
+        <div class="footer__col">
+          <h4>Contact Us</h4>
+          <p>
+            <i class="fa-solid fa-location-dot"></i> 6Sundanparappu, to,
+            Anjugramam Rd, near Check post,Sakthinagar, Kanniyakumari, Tamil
+            Nadu 629702
+          </p>
+          <p><i class="fa-solid fa-phone"></i> +91 9443580902</p>
+          <p id="footerp">
+            <i class="fa-solid fa-envelope"></i> mail@srishakthilodge.com
+          </p>
+        </div>
+      </div>
+      <div id="qr">
+        <img
+          src="{{ url_for('static', filename='images/qr.jpeg') }}"
+          style="height: 90px; width: 90px"
+          alt=""
+        />
+        <p>Advance Billing Code</p>
+      </div>
+      <div id="social-logo">
+        <a href="https://www.instagram.com/srishakthi_lodge/?hl=en"
+          ><i class="fa-brands fa-instagram"></i> Insatgram |</a
+        >
+        <a href="https://www.facebook.com/profile.php?id=61573704514696"
+          ><i class="fa-brands fa-facebook"></i> Facebook |</a
+        >
+        <a href=""><i class="fa-brands fa-twitter"></i> Twitter</a>
+      </div>
+      <div class="footer__bar">
+        Copyright © 2025 SRISHAKTHI. All rights reserved
+      </div>
+    </footer>
+
+    <script>
+      document
+        .getElementById("submitBtn")
+        .addEventListener("click", function (event) {
+          event.preventDefault(); // Prevent form submission
+
+          let name = document.querySelector('input[name="name"]').value.trim();
+          let phone = document
+            .querySelector('input[name="phone"]')
+            .value.trim();
+          let email = document
+            .querySelector('input[name="email"]')
+            .value.trim();
+          let message = document
+            .querySelector('input[name="message"]')
+            .value.trim();
+
+          if (!name || !phone || !email || !message) {
+            alert("Please fill in all fields before submitting.");
+          } else {
+            document.getElementById("inquiryForm").submit(); // Submit if all fields are filled
+          }
+        });
+
+      const hamburger = document.getElementById("hamburgerIcon");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const closeIcon = document.getElementById("closeIcon");
+
+      // Open the mobile menu
+      hamburger.addEventListener("click", function () {
+        mobileMenu.style.left = "0"; // Slide in from the left
+      });
+
+      // Close the mobile menu
+      closeIcon.addEventListener("click", function () {
+        mobileMenu.style.left = "-100%"; // Slide out to the left
+      });
+
+      let index = 0;
+      const carousel = document.querySelector(".carousel");
+      const cards = document.querySelectorAll(".card");
+      const totalCards = cards.length;
+
+      function slideCarousel() {
+        index++; // Move to the next card
+
+        if (index >= totalCards) {
+          index = 0; // Reset to first card when last card is reached
+        }
+
+        const offset = -index * 100; // Move one card at a time
+        carousel.style.transform = `translateX(${offset}%)`;
+      }
+
+      // Auto-slide every 3 seconds
+      setInterval(slideCarousel, 3000);
+
+      document
+        .querySelector(".scroll-to-top")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      const scrollRevealOption = {
+        distance: "50px",
+        origin: "bottom",
+        duration: 1000,
+      };
+      const scrollToleft = {
+        distance: "50px",
+        origin: "left",
+        duration: 1000,
+      };
+      ScrollReveal().reveal(".header__content h1,.header__content p", {
+        ...scrollToleft,
+        interval: 500,
+      });
+      ScrollReveal().reveal("#facility-head", {
+        ...scrollToleft,
+        interval: 500,
+      });
+      ScrollReveal().reveal(".facility-item", {
+        ...scrollRevealOption,
+        interval: 500,
+      });
+      ScrollReveal().reveal("#event-head", {
+        ...scrollRevealOption,
+        interval: 500,
+      });
+      ScrollReveal().reveal(".booking__container", {
+        ...scrollToleft,
+        interval: 500,
+      });
+      ScrollReveal().reveal("#travel", {
+        ...scrollRevealOption,
+        interval: 500,
+      });
+
+      ScrollReveal().reveal(
+        ".room__card, .room__container>h2,.room__container>p",
+        {
+          ...scrollRevealOption,
+          interval: 100,
+        }
+      );
+    </script>
+    <script
+      src="https://kit.fontawesome.com/473ad290b8.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

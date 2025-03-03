@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <title>Sri Shakti</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='images/ram-logo.png') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='package1.css') }}"
+    />
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <meta
+      name="description"
+      content="Srishakthi Travels, Lodge, and Celebration Hall in Kanyakumari. Offering comfortable stays, reliable travel services, and spacious event halls for weddings, parties, and corporate functions. Book now for the best hospitality in Kanyakumari."
+    />
+    <meta
+      name="keywords"
+      content="Travels in Kanyakumari, Lodge in Kanyakumari, Celebration Hall Kanyakumari, Best Hotel Kanyakumari, Event Hall Kanyakumari, Srishakthi Travels, Wedding Hall Kanyakumari, Budget Lodge Kanyakumari, Kanyakumari Tourism, Affordable Stays Kanyakumari, Banquet Hall Kanyakumari, Party Hall Kanyakumari, Tourist Lodge Kanyakumari, AC Rooms Kanyakumari, Non-AC Rooms Kanyakumari, Group Stay Kanyakumari, Business Meeting Hall Kanyakumari, Family Stay Kanyakumari, Car Rental Kanyakumari, Tour Packages Kanyakumari, Best Travels Agency Kanyakumari, Sightseeing Kanyakumari, Luxury Hotel Kanyakumari, Conference Hall Kanyakumari, Marriage Hall Kanyakumari, Affordable Lodge Kanyakumari, Tourist Accommodation Kanyakumari"
+    />
+  </head>
+  <body>
+    <a href="https://wa.me/9443580902" class="whatsapp-icon" target="_blank">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+        alt="WhatsApp"
+      />
+    </a>
+    <a href="#" class="scroll-to-top"> &#8679; </a>
+    <nav>
+      <div class="nav__logo">
+        <img
+          src="{{url_for('static',filename='/images/ram-logo.png')}}"
+          alt=""
+          height="100px"
+          width="100px"
+        /><span class="logo-text">SRISHAKTHI</span>
+      </div>
+      <ul class="nav__links">
+        <li class="link"><a href="{{ url_for('home1') }}">Home</a></li>
+        <!-- <li class="link"><a href="#">About</a></li> -->
+        <li class="link"><a href="{{ url_for('rooms') }}">Rooms</a></li>
+        <li class="link"><a href="{{ url_for('events') }}">Events</a></li>
+        <li class="link"><a href="{{ url_for('travel') }}">Travels</a></li>
+        <li class="link">
+          <a href="{{ url_for('facilities') }}">Facilities</a>
+        </li>
+        <li class="link">
+          <a href="{{ url_for('attraction') }}">Attractions</a>
+        </li>
+        <!-- <li class="link"><a href="#">Gallery</a></li>
+      <li class="link"><a href="#">Contact Us</a></li> -->
+        <li class="link" id="attractions">
+          <a href="#">About</a>
+          <ul class="dropdown">
+            <li>
+              <a href="{{ url_for('aboutus') }}"
+                ><i class="fa-solid fa-arrow-right"></i> About Us</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('gallery') }}"
+                ><i class="fa-solid fa-arrow-right"></i> Gallery</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('contact') }}"
+                ><i class="fa-solid fa-arrow-right"></i> Contact Us</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Hamburger Icon -->
+      <div class="hamburger" id="hamburgerIcon">
+        <i class="ri-menu-line"></i>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="close-icon" id="closeIcon">
+          <i class="ri-close-line"></i>
+        </div>
+        <div id="mobile-text">
+          <h3>SRI SHAKTHI</h3>
+          <p>
+            Welcome to Sri Shakthi, your perfect choice for luxury stays,
+            elegant halls, seamless travel, and memorable experiences
+          </p>
+        </div>
+        <ul>
+          <li><a href="{{ url_for('home1') }}">Home</a></li>
+          <li><a href="{{ url_for('aboutus') }}">About</a></li>
+          <li><a href="{{ url_for('rooms') }}">Rooms</a></li>
+          <li><a href="{{ url_for('events') }}">Events</a></li>
+          <li><a href="{{ url_for('travel') }}">Travel</a></li>
+          <li><a href="{{ url_for('facilities') }}">Facilities</a></li>
+          <li><a href="{{ url_for('attraction') }}">Attractions</a></li>
+          <li><a href="{{ url_for('gallery') }}">Gallery</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        </ul>
+      </div>
+    </nav>
+    <!-- hidden form -->
+    <!-- Button to open the form -->
+    <button class="open-btn" onclick="showForm()">
+      <i class="fa-solid fa-envelope"></i>
+      <span class="tooltip">Click to open the enquiry form</span>
+    </button>
+
+    <!-- Background overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Popup Form -->
+    <!-- Popup Form -->
+    <div class="popup-form" id="popupForm">
+      <span class="form-close-btn" onclick="hideForm()">✖</span>
+      <div class="form-container">
+        <!-- Left Side: Image with Text & Social Icons -->
+        <div class="form-left">
+          <h2>Get in Touch</h2>
+          <div class="social-icons">
+            <a href="https://www.instagram.com/srishakthi_lodge/?hl=en"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="https://www.facebook.com/profile.php?id=61573704514696"
+              ><i class="fa-brands fa-facebook"></i
+            ></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Right Side: Form -->
+        <div class="form-right">
+          <h2>GET IN TOUCH</h2>
+          <p>Anytime, Anywhere – We're Here to Help</p>
+          <form id="enquiryForm">
+            <input type="text" placeholder="Name" name="name" /><br /><br />
+            <input
+              type="text"
+              placeholder="Phone Number"
+              name="phone"
+            /><br /><br />
+            <input type="email" placeholder="Email" name="email" /><br /><br />
+            <textarea
+              name="message"
+              placeholder="Message"
+              rows="4"
+              cols="40"
+              style="resize: none"
+            ></textarea
+            ><br /><br />
+            <button type="submit">
+              <i class="fa-solid fa-paper-plane"></i> Share
+            </button>
+          </form>
+          <p id="responseMessage"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- head -->
+    <div id="head">
+      <h1>Our Packages</h1>
+      <p>Explore Our Package Details</p>
+    </div>
+    <h3 id="main-head">Devotional Packages</h3>
+    <div id="content1">
+      <div class="head-card">
+        <ul>
+          <li>Kanyakumari</li>
+          <li>Madurai</li>
+          <li>Rameshwaram</li>
+          <li>Trivandrum</li>
+          <li>Tanjore</li>
+          <li>Thiruvannamalai</li>
+        </ul>
+      </div>
+    </div>
+    <!-- content -->
+    <div id="content">
+      <div class="card">
+        <img
+          src="https://nanthutravels.in/site/kanyakumari-temple.jpg"
+          alt=""
+        />
+        <h3>Devi Kanya Kumari</h3>
+        <p>
+          Devi Kanya Kumari, is Shree Bhagavathy in the form of an adolescent
+          girl child. Devi is also known as Shree Baala Bhadra or Shree Baala.
+          She is popularly known as "Bhagavathy" (Durga or Parvati) "Devi".
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/site/su.jpg" alt="" />
+        <h3>Suchindrum</h3>
+        <p>
+          Suchindrum is a temple town situated in the southern most district of
+          Kanyakumari in Tamil Nadu State, India. It is 11 km from Kanyakumari
+          city and 7 km from Nagercoil. It is an important pilgrim center and
+          the site of the famous Thanumalayan Temple.
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/south/madurai.jpg" alt="" />
+        <h3>Madurai</h3>
+        <p>
+          Madurai is a major city and cultural headquarters in the state of
+          Tamil Nadu in India. It is the administrative headquarters of Madurai
+          District and the 25th largest urban agglomeration in India.Madurai is
+          the second largest city by area and third largest city by population
+          in Tamil Nadu
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/south/rameshwaram.jpg" alt="" />
+        <h3>Rameswaram</h3>
+        <p>
+          Rameswaram, is a town and a second grade municipality in the
+          Ramanathapuram district in the South Indian state of Tamil Nadu. It is
+          located on Pamban Island separated from mainland India by the Pamban
+          channel and is about 50 kilometres from Mannar Island, Sri Lanka.
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/south/padba.jpg" alt="" />
+        <h3>Sri Padmanabhaswamy Temple</h3>
+        <p>
+          As a tribute to K.Kamaraj, who served as the Chief Minister of
+          Tamilnadu and who was a great freedom fighter, the Government of
+          Tamilnadu constructed a Memorial at the place where his ashes were
+          kept for public to pay homage before immersion in the sea. President
+          of Indian National Congress.
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/images/taj.jpeg" alt="" />
+        <h3>Tanjore Temple</h3>
+        <p>
+          The Tanjore Temple, also known as the Brihadeeswarar Temple or
+          Peruvudaiyar Kovil, is an ancient Hindu temple located in Thanjavur
+          (formerly known as Tanjore), Tamil Nadu, India. Built during the 11th
+          century by the Chola dynasty, it is one of the largest and most
+          impressive temples in South India. The temple is dedicated to Lord
+          Shiva and features stunning Dravidian architecture, with a towering
+          vimana (temple tower) that reaches a height of 216 feet (66 meters).
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/images/tm.jpeg" alt="" />
+        <h3>Thiruvannamalai Temple</h3>
+        <p>
+          The Thiruvannamalai Temple, also known as the Arunachaleswarar Temple,
+          is a sacred Hindu temple situated in the town of Thiruvannamalai in
+          Tamil Nadu, India. Dedicated to Lord Shiva, it is one of the largest
+          temples in the country and holds immense religious significance. The
+          temple complex is situated at the base of the Annamalai Hill, which is
+          considered a manifestation of Lord Shiva himself.
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/images/vl.jpeg" alt="" />
+        <h3>Vellore Golden temple</h3>
+        <p>
+          The Vellore Golden Temple, officially known as the Sri Lakshmi
+          Narayani Golden Temple, is a prominent spiritual and architectural
+          landmark located in Sripuram near Vellore, Tamil Nadu, India. It is
+          dedicated to the goddess Sri Lakshmi Narayani, a manifestation of
+          Goddess Lakshmi, the deity of wealth and prosperity, and Lord
+          Narayana, a form of Lord Vishnu.
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/images/tpl.jpeg" alt="" />
+        <h3>Tirupathi Temple</h3>
+        <p>
+          The Tirupati Temple, officially known as the Sri Venkateswara Temple,
+          is a renowned Hindu temple located in the town of Tirupati in the
+          Chittoor district of Andhra Pradesh, India. It is one of the most
+          revered and visited pilgrimage sites in the country. The temple is
+          dedicated to Lord Venkateswara, an incarnation of Lord Vishnu, and is
+          situated atop the Tirumala Hills, surrounded by the picturesque
+          Eastern Ghats. The temple complex is vast and encompasses several
+          shrines, halls, and pavilions.
+        </p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="section__container footer__container">
+        <div class="footer__col">
+          <!-- <img src="{{url_for('static',filename='/images/ram-logo.png')}}" alt="" height="100px" width="100px"> -->
+          <h3>SRI SHAKTHI</h3>
+          <p>
+            Welcome to Sri Shakthi, your perfect choice for luxury stays,
+            elegant halls, seamless travel, and memorable experiences
+          </p>
+          <p>Kanyakumari,India</p>
+        </div>
+        <div class="footer__col">
+          <h4>Quick Links</h4>
+          <p><a href="{{ url_for('aboutus') }}">About Us</a></p>
+          <p><a href="{{ url_for('rooms') }}">Rooms&Suites</a></p>
+          <p><a href="{{ url_for('attraction') }}">Local Attractions</a></p>
+          <p><a href="{{ url_for('facilities') }}">Facilities</a></p>
+          <p>
+            <a href="{{ url_for('termsandcondition') }}">Terms And Condition</a>
+          </p>
+        </div>
+        <div class="footer__col">
+          <h4>Guest Services</h4>
+          <p>24/7 Front Desk</p>
+          <p>Parking</p>
+          <p>Room Service</p>
+          <p>Free Wi-Fi</p>
+        </div>
+        <div class="footer__col">
+          <h4>Contact Us</h4>
+          <p>
+            <i class="fa-solid fa-location-dot"></i> 6Sundanparappu, to,
+            Anjugramam Rd, near Check post,Sakthinagar, Kanniyakumari, Tamil
+            Nadu 629702
+          </p>
+          <p><i class="fa-solid fa-phone"></i> +91 9443580902</p>
+          <p id="footerp">
+            <i class="fa-solid fa-envelope"></i> mail@srishakthilodge.com
+          </p>
+        </div>
+      </div>
+      <div id="qr">
+        <img
+          src="{{ url_for('static', filename='images/qr.jpeg') }}"
+          style="height: 90px; width: 90px"
+          alt=""
+        />
+        <p>Advance Billing Code</p>
+      </div>
+      <div id="social-logo">
+        <a href="https://www.instagram.com/srishakthi_lodge/?hl=en"
+          ><i class="fa-brands fa-instagram"></i> Insatgram |</a
+        >
+        <a href="https://www.facebook.com/profile.php?id=61573704514696"
+          ><i class="fa-brands fa-facebook"></i> Facebook |</a
+        >
+        <a href=""><i class="fa-brands fa-twitter"></i> Twitter</a>
+      </div>
+      <div class="footer__bar">
+        Copyright © 2025 SRISHAKTHI. All rights reserved
+      </div>
+    </footer>
+
+    <script>
+      // document.getElementById("submitBtn").addEventListener("click", function () {
+      //     document.getElementById("inquiryForm").submit();
+      // });
+
+      const hamburger = document.getElementById("hamburgerIcon");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const closeIcon = document.getElementById("closeIcon");
+
+      // Open the mobile menu
+      hamburger.addEventListener("click", function () {
+        mobileMenu.style.left = "0"; // Slide in from the left
+      });
+
+      // Close the mobile menu
+      closeIcon.addEventListener("click", function () {
+        mobileMenu.style.left = "-100%"; // Slide out to the left
+      });
+
+      // hidden form
+      function showForm() {
+        document.getElementById("popupForm").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+        setTimeout(() => {
+          document.getElementById("popupForm").classList.add("show");
+        }, 50);
+      }
+
+      function hideForm() {
+        document.getElementById("popupForm").classList.remove("show");
+        setTimeout(() => {
+          document.getElementById("popupForm").style.display = "none";
+          document.getElementById("overlay").style.display = "none";
+        }, 500);
+      }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let form = document.getElementById("enquiryForm");
+        if (form) {
+          form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            let formContainer = document.getElementById("popupForm"); // Form popup
+            let overlayContainer = document.getElementById("overlay"); // Background overlay
+            let formData = new FormData(form);
+            let responseMessage = document.getElementById("responseMessage");
+
+            fetch("/enquiry_form", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) =>
+                response
+                  .json()
+                  .then((data) => ({ status: response.status, body: data }))
+              )
+              .then((result) => {
+                if (result.status === 400) {
+                  responseMessage.innerText = result.body.error;
+                  responseMessage.style.color = "red";
+                } else {
+                  alert(result.body.message); // Show success message
+                  setTimeout(() => {
+                    console.log("Reloading page now...");
+                    window.location.href = window.location.href;
+                  }, 500);
+                }
+              })
+              .catch((error) => console.error("Error:", error));
+          });
+        } else {
+          console.error("Error: enquiryForm not found in DOM!");
+        }
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        const scrollToright = {
+          origin: "right",
+          distance: "50px",
+          duration: 1000,
+        };
+
+        const scrollToleft = {
+          distance: "50px",
+          origin: "left",
+          duration: 1000,
+        };
+        const scrollRevealOption = {
+          distance: "50px",
+          origin: "bottom",
+          duration: 1000,
+        };
+
+        ScrollReveal().reveal("#head>h1,#head>p", {
+          ...scrollRevealOption, // Fixed variable name
+          interval: 500,
+        });
+
+        ScrollReveal().reveal(".card", {
+          ...scrollToleft,
+          interval: 500,
+        });
+      });
+    </script>
+
+    <script
+      src="https://kit.fontawesome.com/473ad290b8.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

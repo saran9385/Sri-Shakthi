@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <title>Sri Shakti</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='images/ram-logo.png') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='attraction.css') }}"
+    />
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <meta
+      name="description"
+      content="Srishakthi Travels, Lodge, and Celebration Hall in Kanyakumari. Offering comfortable stays, reliable travel services, and spacious event halls for weddings, parties, and corporate functions. Book now for the best hospitality in Kanyakumari."
+    />
+    <meta
+      name="keywords"
+      content="Travels in Kanyakumari, Lodge in Kanyakumari, Celebration Hall Kanyakumari, Best Hotel Kanyakumari, Event Hall Kanyakumari, Srishakthi Travels, Wedding Hall Kanyakumari, Budget Lodge Kanyakumari, Kanyakumari Tourism, Affordable Stays Kanyakumari, Banquet Hall Kanyakumari, Party Hall Kanyakumari, Tourist Lodge Kanyakumari, AC Rooms Kanyakumari, Non-AC Rooms Kanyakumari, Group Stay Kanyakumari, Business Meeting Hall Kanyakumari, Family Stay Kanyakumari, Car Rental Kanyakumari, Tour Packages Kanyakumari, Best Travels Agency Kanyakumari, Sightseeing Kanyakumari, Luxury Hotel Kanyakumari, Conference Hall Kanyakumari, Marriage Hall Kanyakumari, Affordable Lodge Kanyakumari, Tourist Accommodation Kanyakumari"
+    />
+  </head>
+  <body>
+    <a href="https://wa.me/9443580902" class="whatsapp-icon" target="_blank">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+        alt="WhatsApp"
+      />
+    </a>
+    <a href="#" class="scroll-to-top"> &#8679; </a>
+    <nav>
+      <div class="nav__logo">
+        <img
+          src="{{url_for('static',filename='/images/ram-logo.png')}}"
+          alt=""
+          height="100px"
+          width="100px"
+        /><span class="logo-text">SRISHAKTHI</span>
+      </div>
+      <ul class="nav__links">
+        <li class="link"><a href="{{ url_for('home1') }}">Home</a></li>
+        <!-- <li class="link"><a href="#">About</a></li> -->
+        <li class="link"><a href="{{ url_for('rooms') }}">Rooms</a></li>
+        <li class="link"><a href="{{ url_for('events') }}">Events</a></li>
+        <li class="link"><a href="{{ url_for('travel') }}">Travels</a></li>
+        <li class="link">
+          <a href="{{ url_for('facilities') }}">Facilities</a>
+        </li>
+        <li class="link">
+          <a href="{{ url_for('attraction') }}">Attractions</a>
+        </li>
+        <!-- <li class="link"><a href="#">Gallery</a></li>
+      <li class="link"><a href="#">Contact Us</a></li> -->
+        <li class="link" id="attractions">
+          <a href="#">About</a>
+          <ul class="dropdown">
+            <li>
+              <a href="{{ url_for('aboutus') }}"
+                ><i class="fa-solid fa-arrow-right"></i> About Us</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('gallery') }}"
+                ><i class="fa-solid fa-arrow-right"></i> Gallery</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('contact') }}"
+                ><i class="fa-solid fa-arrow-right"></i> Contact Us</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Hamburger Icon -->
+      <div class="hamburger" id="hamburgerIcon">
+        <i class="ri-menu-line"></i>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="close-icon" id="closeIcon">
+          <i class="ri-close-line"></i>
+        </div>
+        <div id="mobile-text">
+          <h3>SRI SHAKTHI</h3>
+          <p>
+            Welcome to Sri Shakthi, your perfect choice for luxury stays,
+            elegant halls, seamless travel, and memorable experiences
+          </p>
+        </div>
+        <ul>
+          <li>
+            <a href="{{ url_for('home1') }}"
+              >Home<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('aboutus') }}"
+              >About<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('rooms') }}"
+              >Rooms<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('events') }}"
+              >Events<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('travel') }}"
+              >Travel<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('facilities') }}"
+              >Facilities<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('attraction') }}"
+              >Attractions<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('gallery') }}"
+              >Gallery<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{{ url_for('contact') }}"
+              >Contact Us<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- hidden form -->
+    <!-- Button to open the form -->
+    <button class="open-btn" onclick="showForm()">
+      <i class="fa-solid fa-envelope"></i>
+      <span class="tooltip">Click to open the enquiry form</span>
+    </button>
+
+    <!-- Background overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Popup Form -->
+    <!-- Popup Form -->
+    <div class="popup-form" id="popupForm">
+      <span class="form-close-btn" onclick="hideForm()">✖</span>
+      <div class="form-container">
+        <!-- Left Side: Image with Text & Social Icons -->
+        <div class="form-left">
+          <h2>Get in Touch</h2>
+          <div class="social-icons">
+            <a href="https://www.instagram.com/srishakthi_lodge/?hl=en"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="https://www.facebook.com/profile.php?id=61573704514696"
+              ><i class="fa-brands fa-facebook"></i
+            ></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Right Side: Form -->
+        <div class="form-right">
+          <h2>GET IN TOUCH</h2>
+          <p>Anytime, Anywhere – We're Here to Help</p>
+          <form id="enquiryForm">
+            <input type="text" placeholder="Name" name="name" /><br /><br />
+            <input
+              type="text"
+              placeholder="Phone Number"
+              name="phone"
+            /><br /><br />
+            <input type="email" placeholder="Email" name="email" /><br /><br />
+            <textarea
+              name="message"
+              placeholder="Message"
+              rows="4"
+              cols="40"
+              style="resize: none"
+            ></textarea
+            ><br /><br />
+            <button type="submit">
+              <i class="fa-solid fa-paper-plane"></i> Share
+            </button>
+          </form>
+          <p id="responseMessage"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- head -->
+    <div id="head">
+      <h1>Local Attractions</h1>
+      <p>Must-Visit Attractions Nearby!</p>
+    </div>
+
+    <!-- scroll -->
+    <section class="section__container explore__container" id="explore">
+      <div class="explore__content">
+        <h2 class="section__header">
+          Explore hidden<br />gems & popular<br />attractions
+        </h2>
+      </div>
+      <div class="explore__wrapper">
+        <div class="explore__wrapper-inner">
+          <img
+            src="https://media.istockphoto.com/id/1384661820/photo/the-small-island-at-the-most-southern-tip-of-sub-indian-continent-gunya-kumari.jpg?s=612x612&w=0&k=20&c=Y8vrXcoPHac-lj4PCHcL6A3j4DmchAS0buEoMoWik34="
+            alt="explore"
+          />
+          <img
+            src="https://media.istockphoto.com/id/498112231/photo/thiruvalluvar-statues-kanyakumari.jpg?s=612x612&w=0&k=20&c=sgWLULj-5hMrSPXVSLOSbwbabPqSHBe1F1U4tKC1fFA="
+            alt="explore"
+          />
+          <img
+            src="https://th.bing.com/th/id/OIP.mVnvdiJXK3Oyy7h679b48gHaEe?w=267&h=180&c=7&pcl=1b1a19&r=0&o=5&dpr=1.5&pid=1.7"
+            alt="explore"
+          />
+          <img
+            src="https://i0.wp.com/www.zingbus.com/blog/wp-content/uploads/2022/06/Thirparappu-falls-1-1.jpg?resize=1024%2C597&ssl=1"
+            alt="explore"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- content -->
+    <div id="content">
+      <div class="card">
+        <img
+          src="https://2.bp.blogspot.com/-1bSBPbfV1FA/VfgCUy_86kI/AAAAAAAAIuA/wZ9-zYu4hPI/s640/Sunrise%2Bin%2BKanyakumari.jpg"
+          alt=""
+        />
+        <h3>Sunrise View Point</h3>
+        <p>
+          Begin your day with the mesmerizing sunrise at Kanyakumari, where
+          golden hues paint the sky, blending nature’s beauty and serenity.
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://imgcld.yatra.com/ytimages/image/upload/t_yt_blog_w_800_c_fill_g_auto_q_auto:good_f_jpg/v1534231852/Kanyakumari2345_1534231338.jpg"
+          alt=""
+        />
+        <h3>Tirparappu Waterfalls</h3>
+        <p>
+          Feel the refreshing mist of Tirparappu Waterfalls, where cascading
+          waters and lush greenery create a hidden paradise in Kanyakumari
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://www.kanyakumarians.com/data/catalog/mathur/jerin_abinow.jpg"
+          alt=""
+        />
+        <h3>Thottilpalam</h3>
+        <p>
+          Walk across Thottilpalam, a stunning hanging bridge in Kanyakumari,
+          offering breathtaking views, cool breezes, and lush green
+          surroundings.
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://th.bing.com/th/id/OIP.mVnvdiJXK3Oyy7h679b48gHaEe?w=267&h=180&c=7&pcl=1b1a19&r=0&o=5&dpr=1.5&pid=1.7"
+          alt=""
+        />
+        <h3>Padmanabhapuram Palace</h3>
+        <p>
+          Explore Padmanabhapuram Palace, a magnificent wooden palace in
+          Kanyakumari, showcasing rich history, intricate carvings, and timeless
+          architectural beauty
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://lh7-us.googleusercontent.com/docsz/AD_4nXeyDD3x3Tfc8Clwuc8xsBdKTnEZfy5byMB383BGc9b0BXzbAtGEprmR-cV_mVElx62xHII9iiekZydYVRkr0hd5PqnQPGliRKSbC-j-mm08NtmPJksG5YMvazxrjtF9SHq3VwZNlJApPinRndKNole22EPQ?key=2-pUlbCZMNb9FdByvIZJJA"
+          alt=""
+        />
+        <h3>Vivekananda Rock Memorial</h3>
+        <p>
+          Visit Vivekananda Rock Memorial, a serene monument in Kanyakumari,
+          where Swami Vivekananda meditated, offering stunning sea views and
+          spiritual peace
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://img.staticmb.com/mbcontent/images/crop/uploads/2024/4/Mayapuri-Wax-Museum-Places-to-Visit-in-Kanyakumari_0_1200.jpg"
+          alt=""
+        />
+        <h3>Kanyakumari Wax Museum</h3>
+        <p>
+          Explore the Kanyakumari Wax Museum, featuring lifelike statues of
+          famous personalities, showcasing history, culture, and artistic
+          craftsmanship in detail
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://www.indica.today/wp-content/uploads/2022/07/Saint-Thiruvalluvar-Statue-image.jpg"
+          alt=""
+        />
+        <h3>Thiruvalluvar Statue</h3>
+        <p>
+          Admire the towering Thiruvalluvar Statue, a grand tribute to the great
+          poet, symbolizing wisdom, rich culture, and timeless philosophical
+          values
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://api.kumaritourism.com/uploads/image_2022_11_01_T170609_654_1_aa4b02be47.png"
+          alt=""
+        />
+        <h3>Kalikesam</h3>
+        <p>
+          Discover Kalikesam, a hidden gem surrounded by lush forests, flowing
+          streams, and serene landscapes, offering a perfect escape into
+          nature’s beauty
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://th.bing.com/th?id=OSK.HERO7LIH5LzMHPymVa9wQsdNrCdk4SUkbo8R_z9yaBS_ZvE&w=312&h=200&c=15&rs=2&pcl=1b1a19&o=6&dpr=1.5&pid=SANGAM"
+          alt=""
+        />
+        <h3>Thanumalayan Temple</h3>
+        <p>
+          Situated in Suchindram, Thanumalay temple is also known as
+          Sthanumalayan Kovil is the sacred shrine dedicated to Trimuthis
+          (Bramha, Vishnu and Shiva). The beautiful temple was renovated in the
+          17th century, and its inscriptions date back to the 9th century. This
+          beautiful temple represents great architectural magnificence.
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://i1.wp.com/tirupatitirumalainfo.com/wp-content/uploads/2019/08/Kanyakumari-Devi-Temple.jpg?fit=550%2C365&ssl=1"
+          alt=""
+        />
+        <h3>Bhagavathy Amman Temple</h3>
+        <p>
+          Kumari Amman Temple is one place in Kanyakumari with a lot of cultural
+          significance in Kanyakumari. This magnificent temple is situated on
+          the coast surmounting the beach and thousands of vacationers come here
+          creating very big queues. A word of caution: unless you are a Hindu
+          you will not be permitted to enter Kumari Amman Temple even for
+          sightseeing.
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://media-cdn.tripadvisor.com/media/photo-s/0b/39/ea/7d/view-of-the-fort.jpg"
+          alt=""
+        />
+        <h3>Vattakottai Fort</h3>
+        <p>
+          Vattakottai Fort, which translates to the 'Circular Fort' is a seaside
+          fort near Kanyakumari, the southernmost tip of India. The fort is
+          largely made of granite blocks and today, a part of the fort even
+          extends into the sea. The Fort is now a protected site under the
+          Indian Archaeological Department and a major renovation of the fort
+          was undertaken recently by the Department.
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://th.bing.com/th/id/OIP.IDgm-JbqM9I_kh9n8z4v6QHaE8?w=246&h=180&c=7&pcl=1b1a19&r=0&o=5&dpr=1.5&pid=1.7"
+          alt=""
+        />
+        <h3>Courtallam Waterfalls</h3>
+        <p>
+          Set in the midst of a Panchayat town in the Tirunelveli district of
+          Tamil Nadu, the Courtallam falls are renowned in the state for its
+          enormity as well as ferocity. At an elevation of 160 metres (520
+          feet), the cascade towers above its green surroundings and magnificent
+          hillside.
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://media.tripinvites.com/places/kanyakumari/sanguthurai-beach/sanguthurai-beach-featured.jpg"
+          alt=""
+        />
+        <h3>Sanguthurai Beach</h3>
+        <p>
+          Sanguthurai Beach is one of the calmest yet cleanest beaches that you
+          should go to, during your visit to Kanyakumari. Sanguthurai Beach is
+          located in the southernmost part of India, and you can feel the fierce
+          power of the Indian Ocean there.
+        </p>
+      </div>
+      <div class="card">
+        <img
+          src="https://th.bing.com/th/id/OIP.oiPqcK7O2l5WBUJlT-Ob9gHaEk?rs=1&pid=ImgDetMain"
+          alt=""
+        />
+        <h3>Wind Farm</h3>
+        <p>
+          The Muppandal village in Kanyakumari is home to India's largest
+          onshore windmill farms. Scattered across different regions in the
+          city, the wind farms have not only changed the lives of the locals but
+          have added to the visual delight. The lush green ghats surrounding the
+          roads of Kanyakumari now contrast with stark white windmills.
+        </p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="section__container footer__container">
+        <div class="footer__col">
+          <!-- <img src="{{url_for('static',filename='/images/ram-logo.png')}}" alt="" height="100px" width="100px"> -->
+          <h3>SRI SHAKTHI</h3>
+          <p>
+            Welcome to Sri Shakthi, your perfect choice for luxury stays,
+            elegant halls, seamless travel, and memorable experiences
+          </p>
+          <p>Kanyakumari,India</p>
+        </div>
+        <div class="footer__col">
+          <h4>Quick Links</h4>
+          <p><a href="{{ url_for('aboutus') }}">About Us</a></p>
+          <p><a href="{{ url_for('rooms') }}">Rooms&Suites</a></p>
+          <p><a href="{{ url_for('attraction') }}">Local Attractions</a></p>
+          <p><a href="{{ url_for('facilities') }}">Facilities</a></p>
+          <p>
+            <a href="{{ url_for('termsandcondition') }}">Terms And Condition</a>
+          </p>
+        </div>
+        <div class="footer__col">
+          <h4>Guest Services</h4>
+          <p>24/7 Front Desk</p>
+          <p>Parking</p>
+          <p>Room Service</p>
+          <p>Free Wi-Fi</p>
+        </div>
+        <div class="footer__col">
+          <h4>Contact Us</h4>
+          <p>
+            <i class="fa-solid fa-location-dot"></i> 6Sundanparappu, to,
+            Anjugramam Rd, near Check post,Sakthinagar, Kanniyakumari, Tamil
+            Nadu 629702
+          </p>
+          <p><i class="fa-solid fa-phone"></i> +91 9443580902</p>
+          <p id="footerp">
+            <i class="fa-solid fa-envelope"></i> mail@srishakthilodge.com
+          </p>
+        </div>
+      </div>
+      <div id="qr">
+        <img
+          src="{{ url_for('static', filename='images/qr.jpeg') }}"
+          style="height: 90px; width: 90px"
+          alt=""
+        />
+        <p>Advance Billing Code</p>
+      </div>
+      <div id="social-logo">
+        <a href="https://www.instagram.com/srishakthi_lodge/?hl=en"
+          ><i class="fa-brands fa-instagram"></i> Insatgram |</a
+        >
+        <a href="https://www.facebook.com/profile.php?id=61573704514696"
+          ><i class="fa-brands fa-facebook"></i> Facebook |</a
+        >
+        <a href=""><i class="fa-brands fa-twitter"></i> Twitter</a>
+      </div>
+      <div class="footer__bar">
+        Copyright © 2025 SRISHAKTHI. All rights reserved
+      </div>
+    </footer>
+
+    <script>
+      // document.getElementById("submitBtn").addEventListener("click", function () {
+      //     document.getElementById("inquiryForm").submit();
+      // });
+
+      const hamburger = document.getElementById("hamburgerIcon");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const closeIcon = document.getElementById("closeIcon");
+
+      // Open the mobile menu
+      hamburger.addEventListener("click", function () {
+        mobileMenu.style.left = "0"; // Slide in from the left
+      });
+
+      // Close the mobile menu
+      closeIcon.addEventListener("click", function () {
+        mobileMenu.style.left = "-100%"; // Slide out to the left
+      });
+
+      // hidden form
+      function showForm() {
+        document.getElementById("popupForm").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+        setTimeout(() => {
+          document.getElementById("popupForm").classList.add("show");
+        }, 50);
+      }
+
+      function hideForm() {
+        document.getElementById("popupForm").classList.remove("show");
+        setTimeout(() => {
+          document.getElementById("popupForm").style.display = "none";
+          document.getElementById("overlay").style.display = "none";
+        }, 500);
+      }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let form = document.getElementById("enquiryForm");
+        if (form) {
+          form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            let formContainer = document.getElementById("popupForm"); // Form popup
+            let overlayContainer = document.getElementById("overlay"); // Background overlay
+            let formData = new FormData(form);
+            let responseMessage = document.getElementById("responseMessage");
+
+            fetch("/enquiry_form", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) =>
+                response
+                  .json()
+                  .then((data) => ({ status: response.status, body: data }))
+              )
+              .then((result) => {
+                if (result.status === 400) {
+                  responseMessage.innerText = result.body.error;
+                  responseMessage.style.color = "red";
+                } else {
+                  alert(result.body.message); // Show success message
+                  setTimeout(() => {
+                    console.log("Reloading page now...");
+                    window.location.href = window.location.href;
+                  }, 500);
+                }
+              })
+              .catch((error) => console.error("Error:", error));
+          });
+        } else {
+          console.error("Error: enquiryForm not found in DOM!");
+        }
+      });
+      const navBtn = document.getElementById("menu-btn");
+      const navLinks = document.getElementById("nav-links");
+
+      navBtn.addEventListener("click", (e) => {
+        if (navLinks.classList.contains("open")) {
+          navLinks.classList.add("close");
+          navLinks.addEventListener(
+            "animationend",
+            (e) => {
+              navLinks.classList.remove("close");
+              navLinks.classList.remove("open");
+            },
+            { once: true }
+          );
+        } else {
+          navLinks.classList.add("open");
+        }
+      });
+
+      navLinks.addEventListener("click", (e) => {
+        navLinks.classList.add("close");
+        navLinks.addEventListener(
+          "animationend",
+          (e) => {
+            navLinks.classList.remove("close");
+            navLinks.classList.remove("open");
+          },
+          { once: true }
+        );
+      });
+
+      const explore = document.querySelector(".explore__wrapper-inner");
+
+      const exploreContent = Array.from(explore.children);
+
+      exploreContent.forEach((item) => {
+        const duplicateNode = item.cloneNode(true);
+        duplicateNode.setAttribute("aria-hidden", true);
+        explore.appendChild(duplicateNode);
+      });
+
+      const swiper = new Swiper(".swiper", {
+        slidesPerView: "auto",
+        spaceBetween: 20,
+      });
+
+      const faq = document.querySelector(".faq__grid");
+
+      faq.addEventListener("click", (e) => {
+        const target = e.target;
+        const faqCard = target.closest(".faq__card");
+        if (target.classList.contains("ri-arrow-down-s-line")) {
+          if (faqCard.classList.contains("active")) {
+            faqCard.classList.remove("active");
+          } else {
+            Array.from(faq.children).forEach((item) => {
+              item.classList.remove("active");
+            });
+            faqCard.classList.add("active");
+          }
+        }
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        ScrollReveal().reveal(".explore__content", {
+          duration: 1000,
+          origin: "left",
+          distance: "50px",
+          easing: "ease-in-out",
+        });
+
+        ScrollReveal().reveal(".card", {
+          duration: 1000,
+          interval: 500,
+          origin: "right",
+          distance: "50px",
+        });
+        ScrollReveal().reveal("#head>h1,#head>p", {
+          duration: 1000,
+          interval: 500,
+          origin: "bottom",
+          distance: "50px",
+        });
+      });
+    </script>
+
+    <script
+      src="https://kit.fontawesome.com/473ad290b8.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <title>Sri Shakti</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='images/ram-logo.png') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='package2.css') }}"
+    />
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <meta
+      name="description"
+      content="Srishakthi Travels, Lodge, and Celebration Hall in Kanyakumari. Offering comfortable stays, reliable travel services, and spacious event halls for weddings, parties, and corporate functions. Book now for the best hospitality in Kanyakumari."
+    />
+    <meta
+      name="keywords"
+      content="Travels in Kanyakumari, Lodge in Kanyakumari, Celebration Hall Kanyakumari, Best Hotel Kanyakumari, Event Hall Kanyakumari, Srishakthi Travels, Wedding Hall Kanyakumari, Budget Lodge Kanyakumari, Kanyakumari Tourism, Affordable Stays Kanyakumari, Banquet Hall Kanyakumari, Party Hall Kanyakumari, Tourist Lodge Kanyakumari, AC Rooms Kanyakumari, Non-AC Rooms Kanyakumari, Group Stay Kanyakumari, Business Meeting Hall Kanyakumari, Family Stay Kanyakumari, Car Rental Kanyakumari, Tour Packages Kanyakumari, Best Travels Agency Kanyakumari, Sightseeing Kanyakumari, Luxury Hotel Kanyakumari, Conference Hall Kanyakumari, Marriage Hall Kanyakumari, Affordable Lodge Kanyakumari, Tourist Accommodation Kanyakumari"
+    />
+  </head>
+  <body>
+    <a href="https://wa.me/9443580902" class="whatsapp-icon" target="_blank">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+        alt="WhatsApp"
+      />
+    </a>
+    <a href="#" class="scroll-to-top"> &#8679; </a>
+    <nav>
+      <div class="nav__logo">
+        <img
+          src="{{url_for('static',filename='/images/ram-logo.png')}}"
+          alt=""
+          height="100px"
+          width="100px"
+        /><span class="logo-text">SRISHAKTHI</span>
+      </div>
+      <ul class="nav__links">
+        <li class="link"><a href="{{ url_for('home1') }}">Home</a></li>
+        <!-- <li class="link"><a href="#">About</a></li> -->
+        <li class="link"><a href="{{ url_for('rooms') }}">Rooms</a></li>
+        <li class="link"><a href="{{ url_for('events') }}">Events</a></li>
+        <li class="link"><a href="{{ url_for('travel') }}">Travels</a></li>
+        <li class="link">
+          <a href="{{ url_for('facilities') }}">Facilities</a>
+        </li>
+        <li class="link">
+          <a href="{{ url_for('attraction') }}">Attractions</a>
+        </li>
+        <!-- <li class="link"><a href="#">Gallery</a></li>
+      <li class="link"><a href="#">Contact Us</a></li> -->
+        <li class="link" id="attractions">
+          <a href="#">About</a>
+          <ul class="dropdown">
+            <li>
+              <a href="{{ url_for('aboutus') }}"
+                ><i class="fa-solid fa-arrow-right"></i> About Us</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('gallery') }}"
+                ><i class="fa-solid fa-arrow-right"></i> Gallery</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('contact') }}"
+                ><i class="fa-solid fa-arrow-right"></i> Contact Us</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Hamburger Icon -->
+      <div class="hamburger" id="hamburgerIcon">
+        <i class="ri-menu-line"></i>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="close-icon" id="closeIcon">
+          <i class="ri-close-line"></i>
+        </div>
+        <div id="mobile-text">
+          <h3>SRI SHAKTHI</h3>
+          <p>
+            Welcome to Sri Shakthi, your perfect choice for luxury stays,
+            elegant halls, seamless travel, and memorable experiences
+          </p>
+        </div>
+        <ul>
+          <li><a href="{{ url_for('home1') }}">Home</a></li>
+          <li><a href="{{ url_for('aboutus') }}">About</a></li>
+          <li><a href="{{ url_for('rooms') }}">Rooms</a></li>
+          <li><a href="{{ url_for('events') }}">Events</a></li>
+          <li><a href="{{ url_for('travel') }}">Travel</a></li>
+          <li><a href="{{ url_for('facilities') }}">Facilities</a></li>
+          <li><a href="{{ url_for('attraction') }}">Attractions</a></li>
+          <li><a href="{{ url_for('gallery') }}">Gallery</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        </ul>
+      </div>
+    </nav>
+    <!-- hidden form -->
+    <!-- Button to open the form -->
+    <button class="open-btn" onclick="showForm()">
+      <i class="fa-solid fa-envelope"></i>
+      <span class="tooltip">Click to open the enquiry form</span>
+    </button>
+
+    <!-- Background overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Popup Form -->
+    <!-- Popup Form -->
+    <div class="popup-form" id="popupForm">
+      <span class="form-close-btn" onclick="hideForm()">✖</span>
+      <div class="form-container">
+        <!-- Left Side: Image with Text & Social Icons -->
+        <div class="form-left">
+          <h2>Get in Touch</h2>
+          <div class="social-icons">
+            <a href="https://www.instagram.com/srishakthi_lodge/?hl=en"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="https://www.facebook.com/profile.php?id=61573704514696"
+              ><i class="fa-brands fa-facebook"></i
+            ></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Right Side: Form -->
+        <div class="form-right">
+          <h2>GET IN TOUCH</h2>
+          <p>Anytime, Anywhere – We're Here to Help</p>
+          <form id="enquiryForm">
+            <input type="text" placeholder="Name" name="name" /><br /><br />
+            <input
+              type="text"
+              placeholder="Phone Number"
+              name="phone"
+            /><br /><br />
+            <input type="email" placeholder="Email" name="email" /><br /><br />
+            <textarea
+              name="message"
+              placeholder="Message"
+              rows="4"
+              cols="40"
+              style="resize: none"
+            ></textarea
+            ><br /><br />
+            <button type="submit">
+              <i class="fa-solid fa-paper-plane"></i> Share
+            </button>
+          </form>
+          <p id="responseMessage"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- head -->
+    <div id="head">
+      <h1>Our Packages</h1>
+      <p>Explore Our Package Details</p>
+    </div>
+    <h3 id="main-head">Kerala Tour Packages</h3>
+    <div id="content1">
+      <div class="head-card">
+        <ul>
+          <li>Trivandrum</li>
+          <li>Alappuzha</li>
+          <li>Munnar</li>
+          <li>Thekkady</li>
+          <li>Thrissur</li>
+          <li>Cochin</li>
+          <li>Allepy</li>
+        </ul>
+      </div>
+    </div>
+    <!-- content -->
+    <div id="content">
+      <div class="card">
+        <img src="https://nanthutravels.in/kerla/padba.jpg" alt="" />
+        <h3>Thiruvananthapuram</h3>
+        <p>
+          Thiruvananthapuram which is the capital city of Kerala is a blend of
+          serenity and city life.Thiruvananthapuram means The City of Lord
+          Anantha is of historical importance and has many stories to unfold.
+          Thiruvananthapuram owes a lot to Padmanabha Swamy Temple – for the
+          charm, fame and the name.
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/kerla/alp.jpeg" alt="" />
+        <h3>alappuzha</h3>
+        <p>
+          Alappuzha, also known as Alleppey, is a captivating town located in
+          the southern Indian state of Kerala. Situated on the Arabian Sea
+          coast, it is renowned for its backwaters, pristine beaches, and
+          vibrant culture. Alappuzha is often referred to as the "Venice of the
+          East" due to its extensive network of canals, lagoons, and backwaters
+          that wind through the town.
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/kerla/thekady.jpg" alt="" />
+        <h3>Thekkady</h3>
+        <p>
+          Periyar Wildlife sanctuary in Thekkady is a popular wild life
+          sanctuary preserving various species of animals including elephants,
+          tigers, sambars, gaurs and the very rare lion tailed macaques. The
+          forest is situated on the banks of the lake, Periyar.
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/kerla/munar.jpg" alt="" />
+        <h3>Munnar</h3>
+        <p>
+          Munnar is the most popular hill station in South India and one of the
+          best places to see in Kerala. It has exclusive views of extreme
+          mountain slopes which are covered with about 80,000 miles of green tea
+          farms like organic bedding over mountains which offer views of
+          low-flying clouds and misty valleys.
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/kerla/cl.jpeg" alt="" />
+        <h3>Cochin</h3>
+        <p>
+          Cochin, also known as Kochi, is a vibrant city located in the
+          southwestern state of Kerala, India. Situated on the Malabar Coast,
+          Cochin is a bustling port city that has been an important trading
+          center for centuries. It is known for its rich history, diverse
+          culture, and captivating blend of old-world charm and modernity.
+        </p>
+      </div>
+      <div class="card">
+        <img src="https://nanthutravels.in/kerla/trisure.jpg" alt="" />
+        <h3>Thrissur</h3>
+        <p>
+          Thrissur originally known as ‘Thirusivapperoor’ is the cultural
+          capital of Kerala. Its cultural, religious and spiritual abundance has
+          been historically recorded and is still preserved. The city is also
+          denoted as the ‘Golden capital of Kerala’ because of the surprisingly
+          high sales of gold happening here every year.
+        </p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="section__container footer__container">
+        <div class="footer__col">
+          <!-- <img src="{{url_for('static',filename='/images/ram-logo.png')}}" alt="" height="100px" width="100px"> -->
+          <h3>SRI SHAKTHI</h3>
+          <p>
+            Welcome to Sri Shakthi, your perfect choice for luxury stays,
+            elegant halls, seamless travel, and memorable experiences
+          </p>
+          <p>Kanyakumari,India</p>
+        </div>
+        <div class="footer__col">
+          <h4>Quick Links</h4>
+          <p><a href="{{ url_for('aboutus') }}">About Us</a></p>
+          <p><a href="{{ url_for('rooms') }}">Rooms&Suites</a></p>
+          <p><a href="{{ url_for('attraction') }}">Local Attractions</a></p>
+          <p><a href="{{ url_for('facilities') }}">Facilities</a></p>
+          <p>
+            <a href="{{ url_for('termsandcondition') }}">Terms And Condition</a>
+          </p>
+        </div>
+        <div class="footer__col">
+          <h4>Guest Services</h4>
+          <p>24/7 Front Desk</p>
+          <p>Parking</p>
+          <p>Room Service</p>
+          <p>Free Wi-Fi</p>
+        </div>
+        <div class="footer__col">
+          <h4>Contact Us</h4>
+          <p>
+            <i class="fa-solid fa-location-dot"></i> 6Sundanparappu, to,
+            Anjugramam Rd, near Check post,Sakthinagar, Kanniyakumari, Tamil
+            Nadu 629702
+          </p>
+          <p><i class="fa-solid fa-phone"></i> +91 9443580902</p>
+          <p id="footerp">
+            <i class="fa-solid fa-envelope"></i> mail@srishakthilodge.com
+          </p>
+        </div>
+      </div>
+      <div id="qr">
+        <img
+          src="{{ url_for('static', filename='images/qr.jpeg') }}"
+          style="height: 90px; width: 90px"
+          alt=""
+        />
+        <p>Advance Billing Code</p>
+      </div>
+      <div id="social-logo">
+        <a href="https://www.instagram.com/srishakthi_lodge/?hl=en"
+          ><i class="fa-brands fa-instagram"></i> Insatgram |</a
+        >
+        <a href="https://www.facebook.com/profile.php?id=61573704514696"
+          ><i class="fa-brands fa-facebook"></i> Facebook |</a
+        >
+        <a href=""><i class="fa-brands fa-twitter"></i> Twitter</a>
+      </div>
+      <div class="footer__bar">
+        Copyright © 2025 SRISHAKTHI. All rights reserved
+      </div>
+    </footer>
+
+    <script>
+      // document.getElementById("submitBtn").addEventListener("click", function () {
+      //     document.getElementById("inquiryForm").submit();
+      // });
+
+      const hamburger = document.getElementById("hamburgerIcon");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const closeIcon = document.getElementById("closeIcon");
+
+      // Open the mobile menu
+      hamburger.addEventListener("click", function () {
+        mobileMenu.style.left = "0"; // Slide in from the left
+      });
+
+      // Close the mobile menu
+      closeIcon.addEventListener("click", function () {
+        mobileMenu.style.left = "-100%"; // Slide out to the left
+      });
+
+      // hidden form
+      function showForm() {
+        document.getElementById("popupForm").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+        setTimeout(() => {
+          document.getElementById("popupForm").classList.add("show");
+        }, 50);
+      }
+
+      function hideForm() {
+        document.getElementById("popupForm").classList.remove("show");
+        setTimeout(() => {
+          document.getElementById("popupForm").style.display = "none";
+          document.getElementById("overlay").style.display = "none";
+        }, 500);
+      }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let form = document.getElementById("enquiryForm");
+        if (form) {
+          form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            let formContainer = document.getElementById("popupForm"); // Form popup
+            let overlayContainer = document.getElementById("overlay"); // Background overlay
+            let formData = new FormData(form);
+            let responseMessage = document.getElementById("responseMessage");
+
+            fetch("/enquiry_form", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) =>
+                response
+                  .json()
+                  .then((data) => ({ status: response.status, body: data }))
+              )
+              .then((result) => {
+                if (result.status === 400) {
+                  responseMessage.innerText = result.body.error;
+                  responseMessage.style.color = "red";
+                } else {
+                  alert(result.body.message); // Show success message
+                  setTimeout(() => {
+                    console.log("Reloading page now...");
+                    window.location.href = window.location.href;
+                  }, 500);
+                }
+              })
+              .catch((error) => console.error("Error:", error));
+          });
+        } else {
+          console.error("Error: enquiryForm not found in DOM!");
+        }
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        const scrollToright = {
+          origin: "right",
+          distance: "50px",
+          duration: 1000,
+        };
+
+        const scrollToleft = {
+          distance: "50px",
+          origin: "left",
+          duration: 1000,
+        };
+        const scrollRevealOption = {
+          distance: "50px",
+          origin: "bottom",
+          duration: 1000,
+        };
+
+        ScrollReveal().reveal("#head>h1,#head>p", {
+          ...scrollRevealOption, // Fixed variable name
+          interval: 500,
+        });
+
+        ScrollReveal().reveal(".card", {
+          ...scrollToleft,
+          interval: 500,
+        });
+      });
+    </script>
+
+    <script
+      src="https://kit.fontawesome.com/473ad290b8.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
