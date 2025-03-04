@@ -290,15 +290,14 @@
       }
 
       #rooms-section {
-        width: 100%;
+        width: 90%;
         max-width: 400px;
         padding: 25px;
         background: #ffffff;
         border-radius: 10px;
         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
         text-align: center;
-        margin-left: 25rem;
-        margin-top: 6rem;
+        margin: 6rem auto; /* Centering on all screen sizes */
       }
 
       #rooms-section h2 {
@@ -315,7 +314,7 @@
       }
 
       #rooms-section select,
-      input {
+      #rooms-section input {
         width: 100%;
         padding: 12px;
         border: 1px solid #ccc;
@@ -323,8 +322,9 @@
         font-size: 16px;
         transition: 0.3s ease-in-out;
       }
+
       #rooms-section select:focus,
-      input:focus {
+      #rooms-section input:focus {
         border-color: #007bff;
         box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
         outline: none;
@@ -344,6 +344,36 @@
 
       #rooms-section button:hover {
         background: linear-gradient(135deg, #0056b3, #003d82);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        #rooms-section {
+          width: 80%;
+          margin: 4rem auto;
+        }
+      }
+
+      @media (max-width: 480px) {
+        #rooms-section {
+          width: 95%;
+          padding: 20px;
+        }
+
+        #rooms-section h2 {
+          font-size: 18px;
+        }
+
+        #rooms-section select,
+        #rooms-section input {
+          font-size: 14px;
+          padding: 10px;
+        }
+
+        #rooms-section button {
+          font-size: 15px;
+          padding: 10px;
+        }
       }
 
       /* Responsive Design */
