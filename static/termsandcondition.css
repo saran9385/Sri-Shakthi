@@ -59,6 +59,12 @@ nav {
   justify-content: center;
   align-items: center;
 }
+.nav__logo img {
+  width: 100%;
+  max-width: 100px; /* Adjust the max-width as per your requirement */
+  height: auto; /* Maintain aspect ratio */
+}
+
 
 .nav__links {
   list-style: none;
