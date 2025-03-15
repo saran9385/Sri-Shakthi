@@ -9,6 +9,11 @@
   --white: #ffffff;
   --max-width: 1200px;
 }
+.nav__logo img {
+  width: 100%;
+  max-width: 100px; /* Adjust the max-width as per your requirement */
+  height: auto; /* Maintain aspect ratio */
+}
 
 * {
   margin: 0;

@@ -368,6 +368,11 @@ nav {
   position: absolute;
   right: 10px;
 }
+.nav__logo img {
+  width: 100%;
+  max-width: 100px; /* Adjust the max-width as per your requirement */
+  height: auto; /* Maintain aspect ratio */
+}
 
 .mobile-menu ul li a:hover {
   color: var(--primary-color);
