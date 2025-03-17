@@ -7,15 +7,7 @@ from models import db, Inquiry, Admin,Room
 
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-# ✅ Ensure the /var/data directory exists (important for Render)
-os.makedirs('/var/data', exist_ok=True)
-
-# ✅ Store database in Render’s persistent storage
-db_path = os.path.join('/var/data', 'database.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'your_secret_key'
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -23,12 +15,6 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) 
 db.init_app(app)
-
-# ✅ Create tables if they don't exist (Only run once at startup)
-with app.app_context():
-    db.create_all()
-
-
 
 
 # Helper function to check file extension
