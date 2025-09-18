@@ -59,7 +59,7 @@ def shutdown_session(exception=None):
 # =======================
 
 @app.route('/', methods=['GET', 'POST'])
-def home():
+def home1():
     if request.method == 'POST':
         name = request.form['name']
         phone = request.form['phone']
