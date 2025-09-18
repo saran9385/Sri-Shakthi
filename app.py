@@ -13,15 +13,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # db = SQLAlchemy(app)
 # Initialize database
-with app.app_context():
-    db.create_all()
+db.init_app(app)
+# with app.app_context():
+#     db.create_all()
 app.config['SECRET_KEY'] = 'your_secret_key'
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) 
-db.init_app(app)
+
 
 
 # Helper function to check file extension
