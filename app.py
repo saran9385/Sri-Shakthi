@@ -7,8 +7,8 @@ from models import db, Inquiry, Admin,Room
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://srishakthidb_user:UaYdKphKpV9irglaXElOQBULuz2dwFwT@dpg-cvbv6i2n91rc73cf919g-a/srishakthidb')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://sridb_user:0WErCNp83H1fzkSSSyHwKcB9VRCzKDVV@dpg-d35u189r0fns73bfiq10-a.oregon-postgres.render.com/sridb')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -21,7 +21,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True) 
-# db.init_app(app)
+db.init_app(app)
 
 
 # Helper function to check file extension
