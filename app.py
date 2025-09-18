@@ -8,7 +8,7 @@ from models import db, Inquiry, Admin,Room
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://sridb_user:0WErCNp83H1fzkSSSyHwKcB9VRCzKDVV@dpg-d35u189r0fns73bfiq10-a.oregon-postgres.render.com/sridb')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://sridb_user:0WErCNp83H1fzkSSSyHwKcB9VRCzKDVV@dpg-d35u189r0fns73bfiq10-a.oregon-postgres.render.com/sridb?sslmode=require')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
