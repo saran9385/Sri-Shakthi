@@ -8,17 +8,13 @@ from models import db, Inquiry, Admin,Room
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
-    'DATABASE_URL', 
-    "postgresql://sridb_user:0WErCNp83H1fzkSSSyHwKcB9VRCzKDVV@dpg-d35u189r0fns73bfiq10-a.oregon-postgres.render.com/sridb"
-)
-
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://srishakthidb_user:UaYdKphKpV9irglaXElOQBULuz2dwFwT@dpg-cvbv6i2n91rc73cf919g-a/srishakthidb')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 # Initialize database
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 app.config['SECRET_KEY'] = 'your_secret_key'
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -240,5 +236,4 @@ def update_price():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
-
+    app.run(debug=True)
