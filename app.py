@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://srishakthidb_user:UaYdKphKpV9irglaXElOQBULuz2dwFwT@dpg-cvbv6i2n91rc73cf919g-a/srishakthidb')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 # Initialize database
 with app.app_context():
     db.create_all()
