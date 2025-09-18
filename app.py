@@ -213,7 +213,7 @@ def facilities():
 
 
 @app.route('/rooms')
-def rooms_page():
+def rooms():
     rooms = Room.query.all()
     return render_template('rooms.html', rooms=rooms)
 
