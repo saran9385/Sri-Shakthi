@@ -12,7 +12,7 @@ app = Flask(__name__)
 # =======================
 DATABASE_URL = os.getenv(
     'DATABASE_URL',
-    'postgresql://srishakthidb_user:UaYdKphKpV9irglaXElOQBULuz2dwFwT@dpg-cvbv6i2n91rc73cf919g-a/srishakthidb'
+    'postgresql://sridb_user:0WErCNp83H1fzkSSSyHwKcB9VRCzKDVV@dpg-d35u189r0fns73bfiq10-a/sridb'
 )
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
