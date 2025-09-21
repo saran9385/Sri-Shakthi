@@ -30,3 +30,54 @@
 #     db.session.commit()
 
 #     print("All data from the 'inquiry' table has been deleted successfully!")
+from app import app, db
+from models import Room
+
+# Make sure you are in app context
+with app.app_context():
+    rooms_data = [
+        {
+            "name": "Classic Rooms",
+            "description": "Enjoy a luxurious and relaxing stay in our classic rooms with premium amenities in the heart of Kanyakumari",
+            "price": 0.0,
+            "image_url": "https://img.freepik.com/free-photo/3d-rendering-beautiful-luxury-dark-wood-european-classic-bedroom-suite-hotel_105762-2164.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid"
+        },
+        {
+            "name": "Double BedRooms",
+            "description": "Experience urban elegance and modern comfort in our spacious double bedrooms.",
+            "price": 0.0,
+            "image_url": "https://github.com/WebDesignMastery/RayalPark_25-12-23/blob/main/assets/room-1.jpg?raw=true"
+        },
+        {
+            "name": "Budget Rooms",
+            "description": "Comfortable and affordable, our budget rooms are perfect for a cozy stay with loved ones.",
+            "price": 0.0,
+            "image_url": "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid"
+        },
+        {
+            "name": "Family Rooms",
+            "description": "Experience urban elegance and modern comfort in our spacious family rooms.",
+            "price": 0.0,
+            "image_url": "https://img.freepik.com/premium-photo/traditional-thai-style-wooden-bedroom_251764-581.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid"
+        },
+        {
+            "name": "Simple Rooms",
+            "description": "Cozy and comfortable, our simple rooms are perfect for a relaxing stay",
+            "price": 0.0,
+            "image_url": "https://img.freepik.com/free-photo/bedroom-interior_53876-32151.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid"
+        }
+    ]
+
+    for room in rooms_data:
+        existing_room = Room.query.filter_by(name=room['name']).first()
+        if not existing_room:
+            new_room = Room(
+                name=room['name'],
+                description=room['description'],
+                price=room['price'],
+                image_url=room['image_url']
+            )
+            db.session.add(new_room)
+    
+    db.session.commit()
+    print("Rooms added successfully!")
