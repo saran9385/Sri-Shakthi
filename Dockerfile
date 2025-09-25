@@ -11,8 +11,8 @@ COPY . /app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Expose Render port
+# Expose Render port (optional, Render sets PORT automatically)
 EXPOSE 10000
 
-# Start your Flask app with gunicorn using your command
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:$PORT", "app:app"]
+# Start your Flask app with gunicorn using $PORT
+CMD sh -c "gunicorn -w 4 -b 0.0.0.0:\$PORT app:app"
