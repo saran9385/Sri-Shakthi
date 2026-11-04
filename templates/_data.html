@@ -1,0 +1,79 @@
+{# Shared content used by several pages. Import with:  {% from '_data.html' import attractions %} #}
+
+{% set attractions = [
+  {"name": "Sunrise View Point", "cat": "Coast", "img": "https://2.bp.blogspot.com/-1bSBPbfV1FA/VfgCUy_86kI/AAAAAAAAIuA/wZ9-zYu4hPI/s640/Sunrise%2Bin%2BKanyakumari.jpg", "text": "Begin your day with the mesmerizing sunrise at Kanyakumari, where golden hues paint the sky, blending nature's beauty and serenity."},
+  {"name": "Tirparappu Waterfalls", "cat": "Nature", "img": "https://imgcld.yatra.com/ytimages/image/upload/t_yt_blog_w_800_c_fill_g_auto_q_auto:good_f_jpg/v1534231852/Kanyakumari2345_1534231338.jpg", "text": "Feel the refreshing mist of Tirparappu Waterfalls, where cascading waters and lush greenery create a hidden paradise in Kanyakumari."},
+  {"name": "Thottilpalam", "cat": "Nature", "img": "https://www.kanyakumarians.com/data/catalog/mathur/jerin_abinow.jpg", "text": "Walk across Thottilpalam, a stunning hanging bridge in Kanyakumari, offering breathtaking views, cool breezes and lush green surroundings."},
+  {"name": "Padmanabhapuram Palace", "cat": "Heritage", "img": "https://th.bing.com/th/id/OIP.mVnvdiJXK3Oyy7h679b48gHaEe?w=267&h=180&c=7&pcl=1b1a19&r=0&o=5&dpr=1.5&pid=1.7", "text": "Explore Padmanabhapuram Palace, a magnificent wooden palace in Kanyakumari, showcasing rich history, intricate carvings and timeless architectural beauty."},
+  {"name": "Vivekananda Rock Memorial", "cat": "Coast", "img": "https://lh7-us.googleusercontent.com/docsz/AD_4nXeyDD3x3Tfc8Clwuc8xsBdKTnEZfy5byMB383BGc9b0BXzbAtGEprmR-cV_mVElx62xHII9iiekZydYVRkr0hd5PqnQPGliRKSbC-j-mm08NtmPJksG5YMvazxrjtF9SHq3VwZNlJApPinRndKNole22EPQ?key=2-pUlbCZMNb9FdByvIZJJA", "text": "Visit Vivekananda Rock Memorial, a serene monument in Kanyakumari where Swami Vivekananda meditated, offering stunning sea views and spiritual peace."},
+  {"name": "Kanyakumari Wax Museum", "cat": "Heritage", "img": "https://img.staticmb.com/mbcontent/images/crop/uploads/2024/4/Mayapuri-Wax-Museum-Places-to-Visit-in-Kanyakumari_0_1200.jpg", "text": "Explore the Kanyakumari Wax Museum, featuring lifelike statues of famous personalities and showcasing history, culture and artistic craftsmanship in detail."},
+  {"name": "Thiruvalluvar Statue", "cat": "Heritage", "img": "https://www.indica.today/wp-content/uploads/2022/07/Saint-Thiruvalluvar-Statue-image.jpg", "text": "Admire the towering Thiruvalluvar Statue, a grand tribute to the great poet, symbolizing wisdom, rich culture and timeless philosophical values."},
+  {"name": "Kalikesam", "cat": "Nature", "img": "https://api.kumaritourism.com/uploads/image_2022_11_01_T170609_654_1_aa4b02be47.png", "text": "Discover Kalikesam, a hidden gem surrounded by lush forests, flowing streams and serene landscapes, offering a perfect escape into nature's beauty."},
+  {"name": "Thanumalayan Temple", "cat": "Temples", "img": "https://th.bing.com/th?id=OSK.HERO7LIH5LzMHPymVa9wQsdNrCdk4SUkbo8R_z9yaBS_ZvE&w=312&h=200&c=15&rs=2&pcl=1b1a19&o=6&dpr=1.5&pid=SANGAM", "text": "Situated in Suchindram, the Thanumalayan temple, also known as Sthanumalayan Kovil, is a sacred shrine dedicated to the Trimurti (Brahma, Vishnu and Shiva). The temple was renovated in the 17th century, and its inscriptions date back to the 9th century. It represents great architectural magnificence."},
+  {"name": "Bhagavathy Amman Temple", "cat": "Temples", "img": "https://i1.wp.com/tirupatitirumalainfo.com/wp-content/uploads/2019/08/Kanyakumari-Devi-Temple.jpg?fit=550%2C365&ssl=1", "text": "Kumari Amman Temple holds great cultural significance in Kanyakumari. It stands on the coast above the beach, and thousands of visitors come here, often forming long queues. Please note that only Hindus are permitted to enter the temple, even for sightseeing."},
+  {"name": "Vattakottai Fort", "cat": "Heritage", "img": "https://media-cdn.tripadvisor.com/media/photo-s/0b/39/ea/7d/view-of-the-fort.jpg", "text": "Vattakottai Fort, which translates to the 'Circular Fort', is a seaside fort near Kanyakumari, the southernmost tip of India. It is largely made of granite blocks, and part of it extends into the sea. The fort is a protected site under the Archaeological Survey of India and was recently renovated."},
+  {"name": "Courtallam Waterfalls", "cat": "Nature", "img": "https://th.bing.com/th/id/OIP.IDgm-JbqM9I_kh9n8z4v6QHaE8?w=246&h=180&c=7&pcl=1b1a19&r=0&o=5&dpr=1.5&pid=1.7", "text": "Set in a panchayat town in the Tirunelveli district of Tamil Nadu, the Courtallam falls are renowned in the state for their enormity as well as their force. At an elevation of 160 metres (520 feet), the cascade towers above its green surroundings and magnificent hillside."},
+  {"name": "Sanguthurai Beach", "cat": "Coast", "img": "https://media.tripinvites.com/places/kanyakumari/sanguthurai-beach/sanguthurai-beach-featured.jpg", "text": "Sanguthurai Beach is one of the calmest and cleanest beaches to visit in Kanyakumari. Located in the southernmost part of India, it lets you feel the fierce power of the Indian Ocean."},
+  {"name": "Wind Farm", "cat": "Nature", "img": "https://th.bing.com/th/id/OIP.oiPqcK7O2l5WBUJlT-Ob9gHaEk?rs=1&pid=ImgDetMain", "text": "The Muppandal village in Kanyakumari is home to India's largest onshore windmill farms. Scattered across the region, the wind farms have changed the lives of the locals and added to the visual delight. The lush green ghats along the roads now contrast with stark white windmills."}
+] %}
+
+{% set room_amenities = [
+  ["ri-temp-cold-line", "Air conditioning"],
+  ["ri-wifi-line", "Complimentary Wi-Fi"],
+  ["ri-tv-2-line", "Flat-screen TVs"],
+  ["ri-customer-service-2-line", "Room service"],
+  ["ri-drop-line", "Modern bathrooms"],
+  ["ri-shield-check-line", "CCTV secured"],
+  ["ri-t-shirt-line", "Toiletries"],
+  ["ri-cup-line", "Hot water kettle in all rooms"],
+  ["ri-fire-line", "Hot water in all rooms"],
+  ["ri-heart-pulse-line", "Doctor on call (emergency)"],
+  ["ri-parking-box-line", "Parking facility"],
+  ["ri-t-shirt-2-line", "Laundry service available"]
+] %}
+
+{% set hotel_services = [
+  ["ri-24-hours-line", "Room service, 24 hours"],
+  ["ri-key-2-line", "Online check-in"],
+  ["ri-plug-2-line", "Power backup, 24 hours"],
+  ["ri-customer-service-line", "24/7 reception assistance"],
+  ["ri-restaurant-line", "Onsite restaurant"],
+  ["ri-taxi-line", "Cab service"],
+  ["ri-t-shirt-2-line", "Laundry and ironing on request"]
+] %}
+
+{% set events = [
+  {"id": "birthday", "name": "Birthday parties", "img": "https://img.freepik.com/premium-photo/birthday-celebratory-toast-with-string-lights-champagne-silhouettes_1279686-27627.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+   "text": "Make every celebration unforgettable. From joyful birthdays to milestone events, we create moments filled with fun, laughter and lasting memories.",
+   "facts": [["Highlights", "Theme decorations, kids' entertainment options, customized menus and cake arrangements."]]},
+  {"id": "corporate", "name": "Corporate events", "img": "https://img.freepik.com/free-photo/3d-rendering-seminar-meeting-banquet-hall-room_105762-1773.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+   "text": "Our fully equipped Pongi Hall is perfect for professional gatherings, with an inspiring ambiance and modern facilities.",
+   "facts": [["Ideal for", "Seminars, workshops, product launches, training sessions, team-building activities and board meetings."], ["Facilities", "High-speed Wi-Fi, audio-visual equipment and flexible seating arrangements."]]},
+  {"id": "wedding", "name": "Wedding receptions", "img": "https://img.freepik.com/premium-photo/indian-wedding-stage-decoration-with-flower-sofa_221414-541.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+   "text": "Host a wedding reception in a grand and luxurious setting. Our banquet hall offers ample space and customizable décor to suit your theme.",
+   "facts": [["Services", "Catering, floral arrangements, stage decoration and entertainment options."]]},
+  {"id": "puberty", "name": "Puberty functions", "img": "https://img.freepik.com/free-photo/navratri-interior-decoration_23-2151193731.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+   "text": "Mark this traditional milestone with a blend of cultural significance and modern hospitality. We provide a serene environment for family gatherings.",
+   "facts": [["Highlights", "Traditional setups, authentic cuisine and warm hospitality."]]},
+  {"id": "expo", "name": "Mini exhibitions and expos", "img": "https://img.freepik.com/premium-photo/colorful-trade-show-booths-with-white-counters-chairs_14117-879968.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+   "text": "Showcase your products or services in a professional, spacious venue. Our hall is ideal for small exhibitions, trade fairs and pop-up markets.",
+   "facts": [["Facilities", "Booth arrangements, lighting and display setups tailored to your needs."]]},
+  {"id": "engagement", "name": "Engagement ceremonies", "img": "https://img.freepik.com/premium-photo/beautiful-floral-compositions-restaurant-wedding-ceremony-solemn-ceremony-painting-groom-bride_73989-18454.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+   "text": "Celebrate the beginning of a new chapter in a beautifully designed space that creates the perfect ambiance for love and togetherness.",
+   "facts": [["Services", "Event decoration, photography and catering options."]]},
+  {"id": "family", "name": "Family gatherings and get-together hall", "img": "https://img.freepik.com/premium-photo/breakfast-pancake-feed-event-groundhog-day-showcasing-families-friends-gathered_950002-479155.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+   "text": "Bring your loved ones together for reunions, festivals or any special occasion. Our halls provide a cozy and elegant space for intimate gatherings.",
+   "facts": [["Facilities", "Seating arrangements, buffet services and entertainment options."]]},
+  {"id": "baby", "name": "Baby showers and naming ceremonies", "img": "https://img.freepik.com/free-photo/party-decorations-white-cozy-room_1268-30636.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+   "text": "Cherish the joyous moments of welcoming a new life with a well-organized event.",
+   "facts": [["Services", "Themed decorations, traditional rituals setup and personalized menus."]]},
+  {"id": "farewell", "name": "Farewell parties and alumni meets", "img": "https://img.freepik.com/premium-photo/event_990370-402.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+   "text": "Host a nostalgic evening or bid farewell in a stylish, comfortable setting.",
+   "facts": [["Highlights", "Customized stage setups, sound systems and catering for formal or informal events."]]},
+  {"id": "cultural", "name": "Cultural and social events", "img": "https://img.freepik.com/free-photo/cozy-cafeteria-event-hall-with-white-furniture-imaeg_114579-2231.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+   "text": "From small cultural programs to charity galas, our hall is equipped to handle a wide variety of social events.",
+   "facts": [["Facilities", "Stage, sound systems and professional support for event coordination."]]},
+  {"id": "anniversary", "name": "Anniversaries", "img": "https://img.freepik.com/premium-photo/awards-ceremony-gala-event-honoring-african-americans-who-have-made-significant-contributions_950002-479810.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+   "text": "Celebrate your milestones with elegance and joy. Our team ensures that every detail, from decoration to food, is impeccable.",
+   "facts": [["Highlights", "Romantic ambiance, music arrangements and customized themes."]]}
+] %}

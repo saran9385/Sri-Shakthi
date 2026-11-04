@@ -1,0 +1,42 @@
+{# Reusable content blocks #}
+{% macro steps(items) %}
+<div class="steps">
+  {% for title, text in items %}
+  <div class="step" data-reveal><h3>{{ title }}</h3><p>{{ text }}</p></div>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{% macro faq(items) %}
+<div class="faq">
+  {% for q, a in items %}
+  <details data-reveal><summary>{{ q }}</summary><p>{{ a }}</p></details>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{# A full FAQ section with a heading column #}
+{% macro faq_section(items, title="Questions, answered.", lede="Can't find what you need? Call us or send a message.", tone="") %}
+<section class="section {{ tone }}">
+  <div class="container faq-layout">
+    <div data-reveal>
+      <h2>{{ title }}</h2>
+      <p class="lede">{{ lede }}</p>
+      <button class="btn btn--ink" style="margin-top: 1.5rem" type="button" data-open-enquiry>Ask us directly</button>
+    </div>
+    {{ faq(items) }}
+  </div>
+</section>
+{% endmacro %}
+
+{% macro steps_section(title, lede, items, tone="") %}
+<section class="section {{ tone }}">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <h2>{{ title }}</h2>
+      <p class="lede">{{ lede }}</p>
+    </div>
+    {{ steps(items) }}
+  </div>
+</section>
+{% endmacro %}

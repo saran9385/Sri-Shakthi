@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Sri Shakthi | Stay, Travel &amp; Celebrate in Kanyakumari{% endblock %}</title>
+    <meta
+      name="description"
+      content="{% block description %}Sri Shakthi Travels, Lodge and Celebration Hall in Kanyakumari. Comfortable stays, reliable travel services and spacious event halls for weddings, parties and corporate functions.{% endblock %}"
+    />
+    <meta
+      name="keywords"
+      content="Travels in Kanyakumari, Lodge in Kanyakumari, Celebration Hall Kanyakumari, Best Hotel Kanyakumari, Event Hall Kanyakumari, Srishakthi Travels, Wedding Hall Kanyakumari, Budget Lodge Kanyakumari, Kanyakumari Tourism, Affordable Stays Kanyakumari, Banquet Hall Kanyakumari, Party Hall Kanyakumari, Tourist Lodge Kanyakumari, AC Rooms Kanyakumari, Non-AC Rooms Kanyakumari, Group Stay Kanyakumari, Business Meeting Hall Kanyakumari, Family Stay Kanyakumari, Car Rental Kanyakumari, Tour Packages Kanyakumari, Best Travels Agency Kanyakumari, Sightseeing Kanyakumari, Luxury Hotel Kanyakumari, Conference Hall Kanyakumari, Marriage Hall Kanyakumari, Affordable Lodge Kanyakumari, Tourist Accommodation Kanyakumari"
+    />
+    <meta name="theme-color" content="#0b1f33" />
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/ram-logo.png') }}" />
+    <link rel="preload" href="{{ url_for('static', filename='fonts/newsreader-latin-opsz-normal.woff2') }}" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="{{ url_for('static', filename='fonts/figtree-latin-wght-normal.woff2') }}" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/remixicon/remixicon.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}" />
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    {% set ep = request.endpoint %}
+    <header class="nav">
+      <div class="container nav__inner">
+        <a class="brand" href="{{ url_for('home1') }}" aria-label="Sri Shakthi, home">
+          <span class="brand__mark"><img src="{{ url_for('static', filename='images/ram-logo.png') }}" alt="" width="70" height="70" /></span>
+          <span class="brand__name">Sri Shakthi</span>
+        </a>
+        <nav class="nav__links" aria-label="Main">
+          <a href="{{ url_for('rooms') }}" {% if ep == 'rooms' %}aria-current="page"{% endif %}>Rooms</a>
+          <a href="{{ url_for('events') }}" {% if ep == 'events' %}aria-current="page"{% endif %}>Events</a>
+          <a href="{{ url_for('travel') }}" {% if ep in ('travel', 'package1', 'package2', 'package3') %}aria-current="page"{% endif %}>Travel</a>
+          <a href="{{ url_for('facilities') }}" {% if ep == 'facilities' %}aria-current="page"{% endif %}>Facilities</a>
+          <a href="{{ url_for('attraction') }}" {% if ep == 'attraction' %}aria-current="page"{% endif %}>Attractions</a>
+          <a href="{{ url_for('gallery') }}" {% if ep == 'gallery' %}aria-current="page"{% endif %}>Gallery</a>
+          <a href="{{ url_for('aboutus') }}" {% if ep == 'aboutus' %}aria-current="page"{% endif %}>About</a>
+          <a class="btn btn--nav" href="{{ url_for('contact') }}">Contact</a>
+        </nav>
+        <button class="burger" id="hamburgerIcon" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <i class="ri-menu-line"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="menu" id="mobileMenu" aria-hidden="true">
+      <div class="menu__top">
+        <a class="brand" href="{{ url_for('home1') }}">
+          <span class="brand__mark"><img src="{{ url_for('static', filename='images/ram-logo.png') }}" alt="" width="70" height="70" /></span>
+          <span class="brand__name">Sri Shakthi</span>
+        </a>
+        <button class="round" id="closeIcon" type="button" aria-label="Close menu"><i class="ri-close-line"></i></button>
+      </div>
+      <nav class="menu__links" aria-label="Mobile">
+        <a href="{{ url_for('home1') }}">Home</a>
+        <a href="{{ url_for('rooms') }}">Rooms</a>
+        <a href="{{ url_for('events') }}">Events</a>
+        <a href="{{ url_for('travel') }}">Travel</a>
+        <a href="{{ url_for('facilities') }}">Facilities</a>
+        <a href="{{ url_for('attraction') }}">Attractions</a>
+        <a href="{{ url_for('gallery') }}">Gallery</a>
+        <a href="{{ url_for('aboutus') }}">About us</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+      </nav>
+      <div class="menu__foot">
+        <span>Call or WhatsApp</span>
+        <a href="tel:+919443580902">+91 94435 80902</a>
+      </div>
+    </div>
+
+    <main id="main">
+      {% block hero %}{% endblock %}
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div>
+            <a class="brand" href="{{ url_for('home1') }}">
+              <span class="brand__mark"><img src="{{ url_for('static', filename='images/ram-logo.png') }}" alt="" width="70" height="70" /></span>
+              <span class="brand__name">Sri Shakthi</span>
+            </a>
+            <p class="footer__about">
+              Luxury stays, elegant halls and seamless travel at the southern tip of India.
+            </p>
+            <div class="footer__social">
+              <a href="https://www.instagram.com/srishakthi_lodge/?hl=en" target="_blank" rel="noopener" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+              <a href="https://www.facebook.com/profile.php?id=61573704514696" target="_blank" rel="noopener" aria-label="Facebook"><i class="ri-facebook-circle-line"></i></a>
+              <a href="https://wa.me/919443580902" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="ri-whatsapp-line"></i></a>
+            </div>
+          </div>
+          <div>
+            <h4>Explore</h4>
+            <ul>
+              <li><a href="{{ url_for('rooms') }}">Rooms &amp; suites</a></li>
+              <li><a href="{{ url_for('events') }}">Functions &amp; events</a></li>
+              <li><a href="{{ url_for('travel') }}">Tour packages</a></li>
+              <li><a href="{{ url_for('attraction') }}">Local attractions</a></li>
+              <li><a href="{{ url_for('gallery') }}">Gallery</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Guest information</h4>
+            <ul>
+              <li><a href="{{ url_for('aboutus') }}">About us</a></li>
+              <li><a href="{{ url_for('facilities') }}">Facilities</a></li>
+              <li><a href="{{ url_for('termsandcondition') }}">Terms and conditions</a></li>
+              <li><a href="{{ url_for('contact') }}">Contact us</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Find us</h4>
+            <address>
+              <div><i class="ri-map-pin-2-line"></i><span>6 Sundanparappu, Anjugramam Rd, near Check post, Sakthinagar, Kanniyakumari, Tamil Nadu 629702</span></div>
+              <div><i class="ri-phone-line"></i><a href="tel:+919443580902">+91 94435 80902</a></div>
+              <div><i class="ri-mail-line"></i><a href="mailto:mail@srishakthilodge.com">mail@srishakthilodge.com</a></div>
+            </address>
+            <div class="footer__qr">
+              <img src="{{ url_for('static', filename='images/qr.jpeg') }}" alt="QR code for advance payment" width="96" height="96" />
+              <p>Advance billing code.<br />Scan to pay your booking advance.</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer__bar">
+          <span>&copy; 2025 Sri Shakthi. All rights reserved.</span>
+          <span>Stay. Travel. Celebrate.</span>
+        </div>
+      </div>
+    </footer>
+
+    <div class="float">
+      <button class="top" type="button" aria-label="Back to top"><i class="ri-arrow-up-s-line"></i></button>
+      <button class="enq-open" type="button" data-open-enquiry aria-label="Send an enquiry"><i class="ri-mail-send-line"></i></button>
+      <a class="wa" href="https://wa.me/9443580902" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="ri-whatsapp-line"></i></a>
+    </div>
+
+    <!-- Enquiry dialog: posts to /enquiry_form -->
+    <dialog class="modal" id="popupForm" aria-labelledby="enqTitle">
+      <div class="modal__box">
+        <button class="modal__close" type="button" aria-label="Close"><i class="ri-close-line"></i></button>
+        <div class="modal__side">
+          <div>
+            <h3>Plan your stay with us</h3>
+            <p>Tell us what you have in mind and we will reply with availability and rates.</p>
+          </div>
+          <div class="contact-lines">
+            <a href="tel:+919443580902"><i class="ri-phone-line"></i>+91 94435 80902</a>
+            <a href="https://wa.me/9443580902" target="_blank" rel="noopener"><i class="ri-whatsapp-line"></i>WhatsApp us</a>
+          </div>
+        </div>
+        <div class="modal__form">
+          <h3 id="enqTitle">Send an enquiry</h3>
+          <form id="enquiryForm" class="form-stack">
+            <div class="field"><input type="text" name="name" id="m-name" placeholder=" " autocomplete="name" /><label for="m-name">Name</label></div>
+            <div class="field"><input type="text" name="phone" id="m-phone" placeholder=" " autocomplete="tel" inputmode="tel" /><label for="m-phone">Phone number</label></div>
+            <div class="field"><input type="email" name="email" id="m-email" placeholder=" " autocomplete="email" /><label for="m-email">Email</label></div>
+            <div class="field"><textarea name="message" id="m-message" rows="4" placeholder=" "></textarea><label for="m-message">Message</label></div>
+            <button type="submit" class="btn btn--cobalt btn--block"><i class="ri-send-plane-line"></i>Send enquiry</button>
+            <p id="responseMessage" class="form-note" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    <div class="toast" id="toast" role="status" aria-live="polite" {% if messages %}data-flash="{{ messages[0][1] }}"{% endif %}>
+      <i class="ri-check-line"></i><span></span>
+    </div>
+    {% endwith %}
+
+    {% block scripts %}{% endblock %}
+    <script src="{{ url_for('static', filename='js/site.js') }}"></script>
+  </body>
+</html>

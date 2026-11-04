@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sri Shakthi - Admin Login</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{{ url_for('static', filename='images/ram-logo.png') }}"
+    />
+    <style>
+      /* General Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      /* Body */
+      body {
+        background: linear-gradient(to right, #f3f4f6, #e3e4e6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+        padding: 20px;
+        position: relative;
+      }
+
+      /* Logo Container (Top-Left Outside Login Form) */
+      .logo-container {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-container img {
+        height: 100px; /* Adjust logo size */
+        margin-right: 10px;
+      }
+
+      .logo-container span {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+      }
+
+      /* Login Container */
+      .login-container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+      }
+
+      /* Flash Messages */
+      .flash-messages {
+        margin-bottom: 15px;
+      }
+
+      .alert {
+        padding: 12px;
+        border-radius: 5px;
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+
+      .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      /* Input Fields */
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        background-color: #f9f9f9;
+        transition: border 0.3s ease;
+      }
+
+      input[type="text"]:focus,
+      input[type="password"]:focus {
+        border-color: #2c3e50;
+        outline: none;
+      }
+
+      /* Submit Button */
+      button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(to right, #4a90e2, #1c74d5);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s;
+      }
+
+      button[type="submit"]:hover {
+        background: linear-gradient(to right, #1c74d5, #4a90e2);
+        transform: scale(1.05);
+      }
+
+      /* Cinematic Loading Overlay */
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        z-index: 9999;
+      }
+
+      .overlay .message {
+        background: white;
+        padding: 20px 50px;
+        font-size: 22px;
+        font-weight: bold;
+        border-radius: 10px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Logo and Text (Outside the Login Form) -->
+    <div class="logo-container">
+      <img src="{{ url_for('static', filename='images/ram-logo.png') }}" alt="Logo" />
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-container">
+      <h2>Admin Login</h2>
+
+      <!-- Flash Messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% endwith %}
+
+      <form id="loginForm" method="post" onsubmit="showLoading(event)">
+        <input type="text" name="username" placeholder="Username" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <!-- Cinematic Overlay -->
+    <div class="overlay" id="overlay">
+      <div class="message">Authenticating...</div>
+    </div>
+
+    <script>
+      function showLoading(event) {
+        event.preventDefault();
+        document.getElementById("overlay").style.display = "flex";
+
+        setTimeout(function () {
+          document.getElementById("overlay").style.display = "none";
+          document.getElementById("loginForm").submit();
+        }, 1500);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+{# Shared layout for the three tour package pages #}
+{% from '_parts.html' import steps_section, faq_section with context %}
+{% macro package(includes, places, cta_title) %}
+<section class="section">
+  <div class="container">
+    <ul class="include" data-reveal>
+      {% for item in includes %}<li><i class="ri-check-line"></i>{{ item }}</li>{% endfor %}
+    </ul>
+    <div class="places">
+      {% for p in places %}
+      <article class="place" data-reveal>
+        <div class="media"><img src="{{ p.img }}" alt="{{ p.name }}" loading="lazy" /></div>
+        <div class="place__body">
+          <h3>{{ p.name }}</h3>
+          <p>{{ p.text }}</p>
+          <button class="more" type="button" aria-expanded="false" hidden>Read more</button>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{{ steps_section("How this package works.", "Your plan, from enquiry to return.", [
+  ("Share your dates", "Tell us when you want to travel, how many people are coming and which places matter most."),
+  ("Get your itinerary", "We build a day-by-day plan with transport and stops, and send you a clear quote."),
+  ("Travel at ease", "Your driver and our team keep the day running smoothly. Call us any time on the road.")
+], "section--salt") }}
+
+{{ faq_section([
+  ("Can I add or remove places?", "Yes. Every itinerary can be adjusted to suit your family, pace and interests."),
+  ("What does the price include?", "It depends on the route, vehicle and number of days. We confirm exactly what is included in your quote before you pay."),
+  ("Can I combine this with a stay?", "Yes. You can stay at Sri Shakthi Lodge before or after your tour, and we will coordinate pickup and drop.")
+]) }}
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta" data-reveal>
+      <div>
+        <h2>{{ cta_title }}</h2>
+        <p>Tell us your dates and group size and we will put together a plan and a price.</p>
+      </div>
+      <div class="cta__actions">
+        <button class="btn btn--sun" type="button" data-open-enquiry><i class="ri-mail-send-line"></i>Enquire about this package</button>
+        <a class="btn btn--light" href="{{ url_for('travel') }}#packages">All packages</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endmacro %}
