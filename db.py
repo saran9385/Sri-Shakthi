@@ -10,7 +10,7 @@
 #     room2 = Room(name="Double BedRooms", description="Experience urban elegance and modern comfort in our spacious double bedrooms.", price=100.0, image_url="https://github.com/WebDesignMastery/RayalPark_25-12-23/blob/main/assets/room-1.jpg?raw=true")
 #     room3 = Room(name="Budget Rooms", description="Comfortable and affordable, our budget rooms are perfect for a cozy stay with loved ones.", price=100.0, image_url="https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid")
 #     room4 = Room(name="Family Rooms", description="Experience urban elegance and modern comfort in our spacious family rooms.", price=100.0, image_url="https://img.freepik.com/premium-photo/traditional-thai-style-wooden-bedroom_251764-581.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid")
-#     room5 = Room(name="Simple Rooms", description="Cozy and comfortable, our simple rooms are perfect for a relaxing stay", price=100.0, image_url="https://img.freepik.com/free-photo/bedroom-interior_53876-32151.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid")
+#     r oom5 = Room(name="Simple Rooms", description="Cozy and comfortable, our simple rooms are perfect for a relaxing stay", price=100.0, image_url="https://img.freepik.com/free-photo/bedroom-interior_53876-32151.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid")
     
 
 #     # Add to the session and commit
