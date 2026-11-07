@@ -1267,6 +1267,177 @@ button.link {
     grid-template-columns: 1fr;
   }
 }
+/* ==========================================================================
+   Mobile navigation: bottom tab bar + call button + "More" bottom sheet
+   ========================================================================== */
+.tabbar,
+.nav__call {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  /* Header: logo + round call button, no hamburger */
+  .burger {
+    display: none !important;
+  }
+  .nav__call {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--sun);
+    color: var(--ink);
+    font-size: 1.2rem;
+    box-shadow: 0 8px 18px -8px rgba(245, 154, 35, 0.8);
+    transition: transform 0.25s var(--ease);
+  }
+  .nav__call:active {
+    transform: scale(0.92);
+  }
+
+  /* Floating bottom tab bar */
+  .tabbar {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.15rem;
+    position: fixed;
+    left: 50%;
+    translate: -50% 0;
+    bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    width: min(100% - 1.5rem, 520px);
+    z-index: 120;
+    padding: 0.4rem;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: saturate(1.4) blur(16px);
+    -webkit-backdrop-filter: saturate(1.4) blur(16px);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    box-shadow: var(--shadow-lg);
+  }
+  .tabbar a,
+  .tabbar button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.55rem 0 0.5rem;
+    border: 0;
+    border-radius: 16px;
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1;
+    transition: background 0.25s var(--ease), color 0.25s var(--ease), transform 0.2s var(--ease);
+  }
+  .tabbar i {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+  .tabbar a:active,
+  .tabbar button:active {
+    transform: scale(0.93);
+  }
+  .tabbar a[aria-current="page"] {
+    background: var(--cobalt-l);
+    color: var(--cobalt);
+  }
+
+  /* Keep the floating buttons and footer clear of the bar */
+  .float {
+    bottom: calc(5.6rem + env(safe-area-inset-bottom, 0px));
+  }
+  .footer {
+    padding-bottom: 5.5rem;
+  }
+
+  /* "More" menu as a bottom sheet */
+  .menu {
+    inset: auto 0 0 0;
+    max-height: 88vh;
+    padding: 0.9rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    background: #fff;
+    color: var(--ink);
+    border-radius: 26px 26px 0 0;
+    box-shadow: 0 0 0 100vmax rgba(6, 16, 28, 0.55);
+    transform: translateY(100%);
+  }
+  .menu.is-open {
+    transform: none;
+  }
+  .menu::before {
+    content: "";
+    align-self: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--line);
+    margin-bottom: 0.9rem;
+  }
+  .menu__top {
+    height: auto;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .menu .brand__mark img {
+    filter: none;
+  }
+  .menu .round {
+    width: 42px;
+    height: 42px;
+    border: 0;
+    background: var(--salt);
+    color: var(--ink);
+    font-size: 1.25rem;
+  }
+  .menu .round:hover {
+    background: var(--line);
+    color: var(--ink);
+  }
+  .menu__links {
+    margin: 0;
+    padding: 1rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+  .menu__links a {
+    justify-content: flex-start;
+    padding: 0.9rem 1rem;
+    border: 0;
+    border-radius: 14px;
+    background: var(--salt);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+  .menu__links a:hover {
+    padding-left: 1rem;
+    background: var(--cobalt-l);
+    color: var(--cobalt-d);
+  }
+  .menu__foot {
+    margin-top: 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+  }
+  .menu__foot a {
+    display: block;
+    padding: 0.85rem 1rem;
+    border-radius: 999px;
+    background: var(--sun);
+    color: var(--ink);
+    text-align: center;
+  }
+  body:has(.menu.is-open) {
+    overflow: hidden;
+  }
+}
 
 /* ---------- Two-up intro (rooms page) ---------- */
 .duo {
@@ -2471,5 +2642,115 @@ button.chip {
 @media (max-width: 560px) {
   .quick {
     grid-template-columns: 1fr;
+  }
+}
+/* ==========================================================================
+   "More" sheet redesign: icon list + two action buttons
+   ========================================================================== */
+.btn--wa {
+  background: #1fa855;
+  color: #fff;
+}
+
+@media (max-width: 1100px) {
+  .menu {
+    padding: 0.7rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    border-radius: 28px 28px 0 0;
+  }
+  .menu__top {
+    padding-bottom: 0.4rem;
+    border-bottom: 0;
+  }
+  .menu__label {
+    margin: 0.4rem 0 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .menu__links {
+    display: block;
+    padding: 0.25rem 0 0.75rem;
+  }
+  .menu__links a {
+    display: flex;
+    align-items: center;
+    gap: 0.95rem;
+    padding: 0.8rem 0;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    font-size: 1.02rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .menu__links a:last-child {
+    border-bottom: 0;
+  }
+  .menu__links a:hover {
+    padding-left: 0;
+    background: none;
+    color: var(--cobalt);
+  }
+  .menu__links a span {
+    flex: 1;
+  }
+  .menu__links .ico {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--cobalt-l);
+    color: var(--cobalt);
+    font-size: 1.25rem;
+    transition: background 0.25s var(--ease), color 0.25s var(--ease);
+  }
+  .menu__links .go {
+    font-size: 1.3rem;
+    color: #9fb1c1;
+    transition: transform 0.25s var(--ease), color 0.25s;
+  }
+  .menu__links a:hover .ico,
+  .menu__links a[aria-current="page"] .ico {
+    background: var(--cobalt);
+    color: #fff;
+  }
+  .menu__links a:hover .go {
+    transform: translateX(3px);
+    color: var(--cobalt);
+  }
+  .menu__links a[aria-current="page"] {
+    color: var(--cobalt-d);
+    font-weight: 600;
+  }
+
+  .menu__foot {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    margin-top: 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+  .menu__foot .btn {
+    display: inline-flex;
+    padding: 0.95rem 0.8rem;
+    border-radius: 16px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  .menu__foot .btn--sun {
+    background: var(--sun);
+    color: var(--ink);
+  }
+  .menu__foot .btn--wa {
+    background: #1fa855;
+    color: #fff;
   }
 }

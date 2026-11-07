@@ -43,8 +43,17 @@
         <button class="burger" id="hamburgerIcon" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
           <i class="ri-menu-line"></i>
         </button>
+        <a class="nav__call" href="tel:+919443580902" aria-label="Call us"><i class="ri-phone-fill"></i></a>
       </div>
     </header>
+
+    <nav class="tabbar" aria-label="Quick navigation">
+      <a href="{{ url_for('home1') }}" {% if ep == 'home1' %}aria-current="page"{% endif %}><i class="ri-home-4-line"></i><span>Home</span></a>
+      <a href="{{ url_for('rooms') }}" {% if ep == 'rooms' %}aria-current="page"{% endif %}><i class="ri-hotel-bed-line"></i><span>Rooms</span></a>
+      <a href="{{ url_for('events') }}" {% if ep == 'events' %}aria-current="page"{% endif %}><i class="ri-calendar-event-line"></i><span>Events</span></a>
+      <a href="{{ url_for('travel') }}" {% if ep in ('travel', 'package1', 'package2', 'package3') %}aria-current="page"{% endif %}><i class="ri-car-line"></i><span>Travel</span></a>
+      <button type="button" id="tabMore" aria-label="More pages"><i class="ri-apps-2-line"></i><span>More</span></button>
+    </nav>
 
     <div class="menu" id="mobileMenu" aria-hidden="true">
       <div class="menu__top">
@@ -54,20 +63,20 @@
         </a>
         <button class="round" id="closeIcon" type="button" aria-label="Close menu"><i class="ri-close-line"></i></button>
       </div>
-      <nav class="menu__links" aria-label="Mobile">
-        <a href="{{ url_for('home1') }}">Home</a>
-        <a href="{{ url_for('rooms') }}">Rooms</a>
-        <a href="{{ url_for('events') }}">Events</a>
-        <a href="{{ url_for('travel') }}">Travel</a>
-        <a href="{{ url_for('facilities') }}">Facilities</a>
-        <a href="{{ url_for('attraction') }}">Attractions</a>
-        <a href="{{ url_for('gallery') }}">Gallery</a>
-        <a href="{{ url_for('aboutus') }}">About us</a>
-        <a href="{{ url_for('contact') }}">Contact</a>
+
+      <p class="menu__label">Explore more</p>
+      <nav class="menu__links" aria-label="More pages">
+        <a href="{{ url_for('facilities') }}" {% if ep == 'facilities' %}aria-current="page"{% endif %}><i class="ico ri-service-line"></i><span>Facilities</span><i class="go ri-arrow-right-s-line"></i></a>
+        <a href="{{ url_for('attraction') }}" {% if ep == 'attraction' %}aria-current="page"{% endif %}><i class="ico ri-map-pin-2-line"></i><span>Attractions</span><i class="go ri-arrow-right-s-line"></i></a>
+        <a href="{{ url_for('gallery') }}" {% if ep == 'gallery' %}aria-current="page"{% endif %}><i class="ico ri-gallery-line"></i><span>Gallery</span><i class="go ri-arrow-right-s-line"></i></a>
+        <a href="{{ url_for('aboutus') }}" {% if ep == 'aboutus' %}aria-current="page"{% endif %}><i class="ico ri-information-line"></i><span>About us</span><i class="go ri-arrow-right-s-line"></i></a>
+        <a href="{{ url_for('contact') }}" {% if ep == 'contact' %}aria-current="page"{% endif %}><i class="ico ri-mail-line"></i><span>Contact</span><i class="go ri-arrow-right-s-line"></i></a>
+        <a href="{{ url_for('termsandcondition') }}" {% if ep == 'termsandcondition' %}aria-current="page"{% endif %}><i class="ico ri-file-list-3-line"></i><span>Terms and conditions</span><i class="go ri-arrow-right-s-line"></i></a>
       </nav>
+
       <div class="menu__foot">
-        <span>Call or WhatsApp</span>
-        <a href="tel:+919443580902">+91 94435 80902</a>
+        <a class="btn btn--sun" href="tel:+919443580902"><i class="ri-phone-line"></i>Call us</a>
+        <a class="btn btn--wa" href="https://wa.me/919443580902" target="_blank" rel="noopener"><i class="ri-whatsapp-line"></i>WhatsApp</a>
       </div>
     </div>
 
@@ -174,5 +183,21 @@
 
     {% block scripts %}{% endblock %}
     <script src="{{ url_for('static', filename='js/site.js') }}"></script>
+    <script>
+      (function () {
+        var more = document.getElementById('tabMore');
+        var burger = document.getElementById('hamburgerIcon');
+        var menu = document.getElementById('mobileMenu');
+        var close = document.getElementById('closeIcon');
+        if (!more || !burger || !menu) return;
+        more.addEventListener('click', function () { burger.click(); });
+        document.addEventListener('click', function (e) {
+          if (menu.classList.contains('is-open') &&
+              !menu.contains(e.target) && !more.contains(e.target) && !burger.contains(e.target)) {
+            close.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
