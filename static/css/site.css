@@ -2754,3 +2754,17 @@ button.chip {
     color: #fff;
   }
 }
+/* Floating buttons (phone): WhatsApp left, arrow above enquiry on the right */
+@media (max-width: 1100px) {
+  .float {
+    right: 1rem;
+    left: auto;
+    bottom: calc(6.4rem + env(safe-area-inset-bottom, 0px));
+    justify-items: end;
+  }
+  .float .wa {
+    position: fixed;
+    left: 1rem;
+    bottom: calc(6.4rem + env(safe-area-inset-bottom, 0px));
+  }
+}
