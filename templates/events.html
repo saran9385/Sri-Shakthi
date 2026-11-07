@@ -1,3 +1,4 @@
+```html
 {% extends "base.html" %}
 {% from '_parts.html' import steps_section, faq_section, steps, faq with context %}
 {% from '_data.html' import events %}
@@ -15,53 +16,512 @@
 {% endblock %}
 
 {% block content %}
-<section class="section">
-  <div class="container">
-    <nav class="chips" aria-label="Event types" data-reveal>
-      {% for e in events %}<a class="chip" href="#{{ e.id }}">{{ e.name }}</a>{% endfor %}
-    </nav>
 
-    <div class="rows">
-      {% for e in events %}
-      <article class="row" id="{{ e.id }}">
-        <div class="media" data-reveal><img src="{{ e.img }}" alt="{{ e.name }}" loading="lazy" /></div>
-        <div class="row__body" data-reveal>
-          <h2>{{ e.name }}</h2>
-          <p>{{ e.text }}</p>
-          <dl>
-            {% for label, value in e.facts %}
-            <dt>{{ label }}</dt>
-            <dd>{{ value }}</dd>
-            {% endfor %}
-          </dl>
-          <div><button class="link" type="button" data-open-enquiry>Ask about dates</button></div>
-        </div>
-      </article>
-      {% endfor %}
+<style>
+/* Events page */
+
+.ev-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem 3rem;
+  flex-wrap: wrap;
+  margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.ev-head h2 { max-width: 16ch; }
+.ev-head .lede { margin-top: 0.8rem; }
+
+.ev-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem 0.55rem 0.85rem;
+  border-radius: var(--r-pill);
+  background: var(--cobalt-l);
+  color: var(--cobalt-d);
+  font-weight: 600;
+  font-size: 0.93rem;
+}
+
+.ev-count i {
+  color: var(--sun-d);
+  font-size: 1.1rem;
+}
+
+.ev-layout {
+  display: grid;
+  grid-template-columns: minmax(270px, 340px) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  align-items: start;
+}
+
+.ev-nav {
+  position: sticky;
+  top: calc(var(--nav-h) + 1.25rem);
+  display: grid;
+  gap: 0.35rem;
+  max-height: calc(100svh - var(--nav-h) - 2.5rem);
+  overflow-y: auto;
+  padding: 0.55rem;
+  background: var(--salt);
+  border-radius: var(--r-lg);
+  scrollbar-width: thin;
+}
+
+.ev-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 0.55rem 0.8rem 0.55rem 0.55rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.97rem;
+  line-height: 1.25;
+  color: var(--ink);
+  background: transparent;
+  border: 1.5px solid transparent;
+  border-radius: var(--r-md);
+  transition: background 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    transform 0.25s var(--ease);
+  cursor: pointer;
+}
+
+.ev-tab__thumb {
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ev-tab__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ev-tab__name { flex: 1; }
+
+.ev-tab i {
+  color: var(--cobalt);
+  font-size: 1.15rem;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.25s, transform 0.25s var(--ease);
+}
+
+.ev-tab:hover { background: #fff; }
+
+.ev-tab:hover i,
+.ev-tab[aria-selected="true"] i {
+  opacity: 1;
+  transform: none;
+}
+
+.ev-tab[aria-selected="true"] {
+  background: #fff;
+  border-color: var(--cobalt);
+  box-shadow: var(--shadow-sm);
+}
+
+.ev-panel {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.ev-panel[hidden] { display: none; }
+
+.ev-panel.is-entering {
+  animation: evIn 0.55s var(--ease) both;
+}
+
+@keyframes evIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+.ev-hero {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 16 / 8.5;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.ev-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ev-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 42%, rgba(11, 31, 51, 0.85));
+}
+
+.ev-hero figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  color: #fff;
+}
+
+.ev-hero h3 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.ev-hero h3::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin-top: 0.9rem;
+  border-radius: 3px;
+  background: var(--sun);
+}
+
+.ev-body { display: grid; gap: 1.5rem; }
+
+.ev-text {
+  max-width: 60ch;
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.ev-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 0.9rem;
+}
+
+.ev-facts > div {
+  padding: 1.15rem 1.3rem 1.2rem 1.45rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: inset 3px 0 0 var(--sun);
+}
+
+.ev-facts dt {
+  margin-bottom: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--cobalt);
+}
+
+.ev-facts dd {
+  font-size: 0.97rem;
+  line-height: 1.55;
+}
+
+.ev-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ev-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.ev-step {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.3rem 0;
+  text-align: left;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.ev-step small {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.ev-step i {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  font-size: 1.2rem;
+  border: 1.5px solid var(--line);
+  border-radius: 50%;
+  transition: background 0.25s, color 0.25s,
+    border-color 0.25s, transform 0.25s var(--ease);
+}
+
+.ev-step:hover i {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+  transform: scale(1.06);
+}
+
+.ev-step--next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+/* Tablet and mobile */
+
+@media (max-width: 960px) {
+  .ev-layout {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .ev-nav {
+    position: sticky;
+    top: 66px;
+    z-index: 20;
+    display: flex;
+    gap: 0.5rem;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0.65rem var(--gutter);
+    background: rgba(243, 246, 249, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 0;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .ev-nav::-webkit-scrollbar { display: none; }
+
+  .ev-tab {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 0.4rem 1rem 0.4rem 0.4rem;
+    white-space: nowrap;
+    border-radius: var(--r-pill);
+    background: #fff;
+    scroll-snap-align: center;
+  }
+
+  .ev-tab i { display: none; }
+
+  .ev-tab__thumb {
+    flex-basis: 34px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+  }
+
+  .ev-tab[aria-selected="true"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+  }
+}
+
+@media (max-width: 640px) {
+  .ev-hero { aspect-ratio: 4 / 3; }
+
+  .ev-actions .btn { flex: 1 1 100%; }
+
+  .ev-step span { max-width: 14ch; }
+}
+</style>
+
+<!-- EVENTS: occasion picker -->
+
+<section class="section ev">
+  <div class="container">
+
+    <div class="ev-head" data-reveal>
+      <div>
+        <h2>Choose your occasion</h2>
+        <p class="lede">Pick an event to see what we arrange for it.</p>
+      </div>
+
+      <span class="ev-count">
+        <i class="ri-sparkling-2-line"></i>
+        {{ events|length }} kinds of events
+      </span>
+    </div>
+
+    <div class="ev-layout" data-reveal>
+
+      <div class="ev-nav" role="tablist" aria-label="Event types" aria-orientation="vertical">
+
+        {% for e in events %}
+        <button
+          class="ev-tab"
+          type="button"
+          role="tab"
+          id="tab-{{ e.id }}"
+          aria-controls="panel-{{ e.id }}"
+          aria-selected="{{ 'true' if loop.first else 'false' }}"
+          tabindex="{{ 0 if loop.first else -1 }}"
+          data-id="{{ e.id }}"
+        >
+          <span class="ev-tab__thumb media">
+            <img src="{{ e.img }}" alt="" loading="lazy" />
+          </span>
+
+          <span class="ev-tab__name">{{ e.name }}</span>
+
+          <i class="ri-arrow-right-line" aria-hidden="true"></i>
+        </button>
+        {% endfor %}
+
+      </div>
+
+      <div class="ev-stage">
+
+        {% for e in events %}
+        <article
+          class="ev-panel"
+          role="tabpanel"
+          id="panel-{{ e.id }}"
+          aria-labelledby="tab-{{ e.id }}"
+          data-id="{{ e.id }}"
+          {% if not loop.first %}hidden{% endif %}
+        >
+
+          <figure class="ev-hero media">
+            <img src="{{ e.img }}" alt="{{ e.name }}" loading="lazy" />
+
+            <figcaption>
+              <h3>{{ e.name }}</h3>
+            </figcaption>
+          </figure>
+
+          <div class="ev-body">
+
+            <p class="ev-text">{{ e.text }}</p>
+
+            <dl class="ev-facts">
+              {% for label, value in e.facts %}
+              <div>
+                <dt>{{ label }}</dt>
+                <dd>{{ value }}</dd>
+              </div>
+              {% endfor %}
+            </dl>
+
+            <div class="ev-actions">
+              <button class="btn btn--cobalt" type="button" data-open-enquiry>
+                <i class="ri-mail-send-line"></i>
+                Ask about dates
+              </button>
+
+              <a class="btn btn--ghost" href="tel:+919443580902">
+                <i class="ri-phone-line"></i>
+                Call us
+              </a>
+            </div>
+
+          </div>
+
+          <div class="ev-pager">
+
+            {% if loop.previtem %}
+            <button class="ev-step" type="button" data-go="{{ loop.previtem.id }}">
+              <i class="ri-arrow-left-line"></i>
+              <span>
+                <small>Previous</small>
+                {{ loop.previtem.name }}
+              </span>
+            </button>
+            {% endif %}
+
+            {% if loop.nextitem %}
+            <button class="ev-step ev-step--next" type="button" data-go="{{ loop.nextitem.id }}">
+              <i class="ri-arrow-right-line"></i>
+              <span>
+                <small>Next</small>
+                {{ loop.nextitem.name }}
+              </span>
+            </button>
+            {% endif %}
+
+          </div>
+
+        </article>
+        {% endfor %}
+
+      </div>
     </div>
   </div>
 </section>
 
+<!-- SERVICES SECTION -->
+
 <section class="section section--ink">
   <div class="container">
+
     <div class="section-head" data-reveal>
       <h2>What we can arrange for you.</h2>
       <p class="lede">Bring the idea. We bring the setup, the team and the details.</p>
     </div>
+
     <div class="band" data-reveal>
-      <div><strong>Catering</strong><span>Customized menus, buffet services, cakes</span></div>
-      <div><strong>Decoration</strong><span>Stage, floral and theme setups</span></div>
-      <div><strong>Sound and stage</strong><span>Sound systems, stage and lighting</span></div>
-      <div><strong>Event support</strong><span>Photography and coordination help</span></div>
+      <div>
+        <strong>Catering</strong>
+        <span>Customized menus, buffet services, cakes</span>
+      </div>
+
+      <div>
+        <strong>Decoration</strong>
+        <span>Stage, floral and theme setups</span>
+      </div>
+
+      <div>
+        <strong>Sound and stage</strong>
+        <span>Sound systems, stage and lighting</span>
+      </div>
+
+      <div>
+        <strong>Event support</strong>
+        <span>Photography and coordination help</span>
+      </div>
     </div>
+
   </div>
 </section>
+
+<!-- PLANNING STEPS -->
 
 {{ steps_section("Planning your event.", "From the first call to the last guest.", [
   ("Share the occasion", "Tell us the event type, date, guest count and the mood you want."),
   ("Pick the hall and plan", "We suggest the right hall and walk you through decoration, catering and seating."),
   ("Celebrate", "Our team handles setup and service on the day so you can enjoy it with your guests.")
 ]) }}
+
+<!-- FAQ SECTION -->
 
 {{ faq_section([
   ("Which hall is best for corporate events?", "Our Pongi Hall is fully equipped for seminars, workshops, product launches and board meetings, with Wi-Fi, audio-visual equipment and flexible seating."),
@@ -70,18 +530,170 @@
   ("Can out-of-town guests stay with you?", "Yes. Our lodge offers comfortable rooms, and you can ask us about arrangements for family and group stays.")
 ], tone="section--salt") }}
 
+<!-- FINAL ENQUIRY SECTION -->
+
 <section class="section section--tight">
   <div class="container">
+
     <div class="cta" data-reveal>
       <div>
         <h2>Planning something special?</h2>
         <p>Tell us the occasion, date and guest count. We will suggest the right hall and a plan.</p>
       </div>
+
       <div class="cta__actions">
-        <button class="btn btn--sun" type="button" data-open-enquiry><i class="ri-mail-send-line"></i>Send an enquiry</button>
-        <a class="btn btn--light" href="tel:+919443580902"><i class="ri-phone-line"></i>Call us</a>
+        <button class="btn btn--sun" type="button" data-open-enquiry>
+          <i class="ri-mail-send-line"></i>
+          Send an enquiry
+        </button>
+
+        <a class="btn btn--light" href="tel:+919443580902">
+          <i class="ri-phone-line"></i>
+          Call us
+        </a>
       </div>
     </div>
+
   </div>
 </section>
+
+<!-- OCCASION PICKER JAVASCRIPT -->
+
+<script>
+(function () {
+  var tabs = [].slice.call(document.querySelectorAll(".ev-tab"));
+  var panels = [].slice.call(document.querySelectorAll(".ev-panel"));
+  var stage = document.querySelector(".ev-stage");
+
+  if (!tabs.length || !stage) return;
+
+  function tabFor(id) {
+    return tabs.filter(function (t) {
+      return t.dataset.id === id;
+    })[0];
+  }
+
+  function select(id, opts) {
+    opts = opts || {};
+
+    var tab = tabFor(id);
+    if (!tab) return;
+
+    tabs.forEach(function (t) {
+      var on = t === tab;
+
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+    });
+
+    panels.forEach(function (p) {
+      var on = p.dataset.id === id;
+
+      p.hidden = !on;
+
+      if (on) {
+        p.classList.remove("is-entering");
+        void p.offsetWidth;
+        p.classList.add("is-entering");
+      }
+    });
+
+    if (window.matchMedia("(max-width: 960px)").matches) {
+      tab.scrollIntoView({
+        inline: "center",
+        block: "nearest",
+        behavior: "smooth"
+      });
+    }
+
+    if (opts.focus) {
+      tab.focus();
+    }
+
+    if (opts.push && history.replaceState) {
+      history.replaceState(null, "", "#" + id);
+    }
+
+    if (opts.user) {
+      var y = stage.getBoundingClientRect().top + window.scrollY - 130;
+
+      if (window.scrollY > y) {
+        window.scrollTo({
+          top: y,
+          behavior: "smooth"
+        });
+      }
+    }
+  }
+
+  tabs.forEach(function (t, i) {
+
+    t.addEventListener("click", function () {
+      select(t.dataset.id, {
+        push: true,
+        user: true
+      });
+    });
+
+    t.addEventListener("keydown", function (e) {
+      var n = null;
+
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+        n = (i + 1) % tabs.length;
+      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+        n = (i - 1 + tabs.length) % tabs.length;
+      } else if (e.key === "Home") {
+        n = 0;
+      } else if (e.key === "End") {
+        n = tabs.length - 1;
+      }
+
+      if (n === null) return;
+
+      e.preventDefault();
+
+      select(tabs[n].dataset.id, {
+        push: true,
+        focus: true
+      });
+    });
+
+  });
+
+  [].slice.call(document.querySelectorAll("[data-go]")).forEach(function (b) {
+    b.addEventListener("click", function () {
+      select(b.dataset.go, {
+        push: true,
+        user: true
+      });
+    });
+  });
+
+  var h = decodeURIComponent((location.hash || "").slice(1));
+
+  select(tabFor(h) ? h : tabs[0].dataset.id);
+
+  if (tabFor(h)) {
+    var head = document.querySelector(".ev-head");
+
+    setTimeout(function () {
+      head.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }, 150);
+  }
+
+  window.addEventListener("hashchange", function () {
+    var id = decodeURIComponent((location.hash || "").slice(1));
+
+    if (tabFor(id)) {
+      select(id);
+    }
+  });
+
+})();
+</script>
+
 {% endblock %}
+```
