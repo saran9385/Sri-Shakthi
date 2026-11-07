@@ -30,7 +30,7 @@
           </button>
           <button type="button" data-tab="inquiry" onclick="showSection('inquiry')">
             <svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>
-            Inquiry Dashboard
+            Inquiry
             <span class="badge">{{ inquiries|length }}</span>
           </button>
           <button type="button" data-tab="upload" onclick="showSection('upload')">
@@ -659,12 +659,37 @@
         try { read = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch (e) {}
         const save = () => { try { localStorage.setItem(KEY, JSON.stringify(Array.from(read))); } catch (e) {} };
         const keyOf = (el) => (el.dataset.time || "") + "|" + (el.dataset.phone || "");
+        // const parse = (s) => {
+        //   if (!s) return null;
+        //   let d = new Date(s);
+        //   if (isNaN(d)) d = new Date(String(s).replace(" ", "T"));
+        //   return isNaN(d) ? null : d;
+        // };
         const parse = (s) => {
-          if (!s) return null;
-          let d = new Date(s);
-          if (isNaN(d)) d = new Date(String(s).replace(" ", "T"));
-          return isNaN(d) ? null : d;
-        };
+  if (!s) return null;
+
+  const match = String(s).trim().match(
+    /^(\d{4})-(\d{2})-(\d{2})\s+(\d{1,2}):(\d{2}):(\d{2})\s*(AM|PM)$/i
+  );
+
+  if (!match) return null;
+
+  const [, year, month, day, hour, minute, second, period] = match;
+
+  let h = Number(hour);
+
+  if (period.toUpperCase() === "PM" && h !== 12) h += 12;
+  if (period.toUpperCase() === "AM" && h === 12) h = 0;
+
+  return new Date(
+    Number(year),
+    Number(month) - 1,
+    Number(day),
+    h,
+    Number(minute),
+    Number(second)
+  );
+};
         const day0 = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
         const today0 = day0(new Date());
         const ageDays = (d) => Math.round((today0 - day0(d)) / 86400000);
