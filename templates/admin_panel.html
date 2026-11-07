@@ -10,133 +10,429 @@
   </head>
   <body class="is-dash">
     <div id="overlay" role="status" aria-live="polite">
-      <div class="message-box"><span class="spinner"></span>Logging out...</div>
+      <div class="auth-loader">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3"/><g class="arrow"><path d="M16 8l4 4-4 4M20 12H9"/></g></svg>
+        <span class="sr-only">Logging out</span>
+      </div>
     </div>
 
-    <header class="topbar">
-      <div class="topbar__in">
+    <div class="shell">
+      <aside class="side">
         <div class="logo-container">
           <span class="mark"><img src="{{ url_for('static', filename='images/ram-logo.png') }}" alt="Logo" /></span>
           <div><strong>Sri Shakthi</strong><small>Admin dashboard</small></div>
         </div>
-        <a href="{{ url_for('admin_logout') }}" class="logout-text" onclick="showLogoutOverlay(event)">Logout</a>
-      </div>
-    </header>
 
-    <div class="page">
-      <div class="nav-bar" role="tablist">
-        <button type="button" data-tab="inquiry" onclick="showSection('inquiry')">Inquiry Dashboard</button>
-        <button type="button" data-tab="upload" onclick="showSection('upload')">Upload Image</button>
-        <button type="button" data-tab="rooms" onclick="showSection('rooms')">Room Price</button>
-      </div>
+        <nav class="nav-bar" role="tablist">
+          <button type="button" data-tab="overview" onclick="showSection('overview')">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+            Overview
+          </button>
+          <button type="button" data-tab="inquiry" onclick="showSection('inquiry')">
+            <svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>
+            Inquiry Dashboard
+            <span class="badge">{{ inquiries|length }}</span>
+          </button>
+          <button type="button" data-tab="upload" onclick="showSection('upload')">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 9"/></svg>
+            Upload Image
+          </button>
+          <button type="button" data-tab="rooms" onclick="showSection('rooms')">
+            <svg viewBox="0 0 24 24"><path d="M3 18V8M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.5"/></svg>
+            Room Price
+          </button>
+        </nav>
 
-      <section id="inquiry-section" class="panel">
-        <div class="panel__head">
-          <h1>Inquiry Dashboard <span class="count">{{ inquiries|length }}</span></h1>
-          <input class="input search" id="inquirySearch" type="search" placeholder="Search enquiries" aria-label="Search enquiries" />
+        <div class="side__foot">
+          <div class="tip"><b>Quick tip</b>Reply to new enquiries within a day to turn more of them into bookings.</div>
+          <a href="{{ url_for('admin_logout') }}" class="logout-text" onclick="showLogoutOverlay(event)">Logout</a>
         </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-                <th>Message</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody id="inquiryBody">
-              {% for inquiry in inquiries %}
-              <tr>
-                <td>{{ inquiry.name }}</td>
-                <td>{{ inquiry.phone }}</td>
-                <td>{{ inquiry.email }}</td>
-                <td>{{ inquiry.message }}</td>
-                <td>{{ inquiry.timestamp }}</td>
-              </tr>
-              {% else %}
-              <tr class="empty-row"><td colspan="5">No enquiries yet. New messages from the website will appear here.</td></tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </section>
+      </aside>
 
-      <section id="upload-section" class="panel hidden">
-        <div class="panel__head"><h1>Upload Image</h1></div>
-        <form id="uploadForm" class="toolbar">
-          <input type="file" name="image" id="imageInput" accept="image/*" required />
-          <button class="btn btn--cobalt" type="submit">Upload</button>
-        </form>
-        <div id="uploadMessage" role="status"></div>
-
-        <div class="gallery" id="gallery">
-          {% for image in images %}
-          <div class="image-container" id="img-{{ image }}">
-            <img src="{{ url_for('uploaded_file', filename=image) }}" alt="Gallery Image" />
-            <button class="btn btn--danger" type="button" onclick="deleteImage('{{ image }}')">Delete</button>
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="date" id="today"></p>
+            <h2 id="greet">Welcome back</h2>
           </div>
-          {% endfor %}
-        </div>
-      </section>
+          <div class="who"><span>A</span>Admin</div>
+        </header>
 
-      <section id="rooms-section" class="panel hidden">
-        <div class="panel__head"><h1>Room Price</h1></div>
-        <form id="price-form" class="toolbar">
-          <select class="input" name="room_id" id="room_id" aria-label="Room">
-            {% for room in rooms %}
-            <option value="{{ room.id }}">{{ room.name }}</option>
+        <!-- OVERVIEW -->
+        <section id="overview-section" class="hidden">
+          <div class="hero">
+            <h3>Everything for your guests, in one place.</h3>
+            <p>Check new enquiries, keep your gallery fresh and update room rates in a few clicks.</p>
+            <div class="hero__actions">
+              <button type="button" class="btn btn--brass" onclick="showSection('inquiry')">View enquiries</button>
+              <button type="button" class="btn btn--ghost" onclick="showSection('upload')">Add photos</button>
+              <button type="button" class="btn btn--ghost" onclick="showSection('rooms')">Update prices</button>
+            </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <span class="stat__icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg></span>
+              <div><b>{{ inquiries|length }}</b><small>Total enquiries</small></div>
+            </div>
+            <div class="stat">
+              <span class="stat__icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 9"/></svg></span>
+              <div><b class="js-gallery-count">{{ images|length }}</b><small>Gallery photos</small></div>
+            </div>
+            <div class="stat">
+              <span class="stat__icon"><svg viewBox="0 0 24 24"><path d="M3 18V8M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.5"/></svg></span>
+              <div><b>{{ rooms|length }}</b><small>Room types</small></div>
+            </div>
+            <div class="stat">
+              <span class="stat__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+              <div><b style="font-size:17px">{% if inquiries %}{{ inquiries[0].timestamp }}{% else %}—{% endif %}</b><small>Latest enquiry</small></div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3>Recent enquiries <button type="button" class="link-btn" onclick="showSection('inquiry')">See all</button></h3>
+              <ul class="feed">
+                {% for inquiry in inquiries[:5] %}
+                <li class="enq-open" tabindex="0" role="button" data-name="{{ inquiry.name or '' }}" data-phone="{{ inquiry.phone or '' }}" data-email="{{ inquiry.email or '' }}" data-message="{{ inquiry.message or '' }}" data-time="{{ inquiry.timestamp or '' }}">
+                  <span class="avatar">{{ (inquiry.name or '?')[:1]|upper }}</span>
+                  <div>
+                    <strong>{{ inquiry.name }}</strong>
+                    <p>{{ inquiry.message }}</p>
+                  </div>
+                  <time>{{ inquiry.timestamp }}</time>
+                </li>
+                {% else %}
+                <li class="empty">No enquiries yet. New messages from the website will appear here.</li>
+                {% endfor %}
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Room rates <button type="button" class="link-btn" onclick="showSection('rooms')">Edit</button></h3>
+              <ul class="rates">
+                {% for room in rooms %}
+                <li><span>{{ room.name }}</span><span>{% if room.price %}₹{{ room.price }}{% else %}—{% endif %}</span></li>
+                {% else %}
+                <li class="empty">No rooms added yet.</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- INQUIRIES -->
+        <section id="inquiry-section" class="panel hidden">
+          <div class="panel__head">
+            <h1>Inquiry Dashboard <span class="count">{{ inquiries|length }}</span></h1>
+            <input class="input search" id="inquirySearch" type="search" placeholder="Search enquiries" aria-label="Search enquiries" />
+          </div>
+
+          <div class="mini-stats">
+            <div class="mini"><small>Total enquiries</small><b id="iqTotal">0</b></div>
+            <div class="mini"><small>Received today</small><b id="iqToday">0</b></div>
+            <div class="mini"><small>Last 7 days</small><b id="iqWeek">0</b></div>
+            <div class="mini"><small>Not opened yet</small><b id="iqUnread">0</b></div>
+          </div>
+
+          <div class="grid-2 iq-grid">
+            <div class="card">
+              <h3>Needs your attention <button type="button" class="link-btn" id="markAll">Mark all as opened</button></h3>
+              <ul class="feed" id="attnList"></ul>
+            </div>
+            <div class="card">
+              <h3>Latest enquiry <small class="cap" id="latestCap"></small></h3>
+              <div class="spot" id="latestBox"></div>
+            </div>
+          </div>
+
+          <div class="iq-bar">
+            <div class="fchips" role="group" aria-label="Filter enquiries">
+              <button type="button" class="fchip is-on" data-f="all">All</button>
+              <button type="button" class="fchip" data-f="today">Today</button>
+              <button type="button" class="fchip" data-f="week">This week</button>
+              <button type="button" class="fchip" data-f="unread">New</button>
+            </div>
+            <select class="input" id="sortSel" aria-label="Sort enquiries">
+              <option value="new">Newest first</option>
+              <option value="old">Oldest first</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table class="enq-table">
+              <colgroup><col style="width:27%"><col style="width:18%"><col style="width:29%"><col style="width:16%"><col style="width:10%"></colgroup>
+              <thead><tr><th>Name</th><th>Phone Number</th><th>Email</th><th>Time</th><th></th></tr></thead>
+              <tbody id="inquiryBody">
+                {% for inquiry in inquiries %}
+                <tr class="enq-row enq-open" tabindex="0" role="button" aria-label="View enquiry from {{ inquiry.name }}" data-name="{{ inquiry.name or '' }}" data-phone="{{ inquiry.phone or '' }}" data-email="{{ inquiry.email or '' }}" data-message="{{ inquiry.message or '' }}" data-time="{{ inquiry.timestamp or '' }}">
+                  <td data-label="Name"><div class="who-cell"><span class="avatar">{{ (inquiry.name or '?')[:1]|upper }}</span>{{ inquiry.name }}</div></td>
+                  <td data-label="Phone"><a href="tel:{{ inquiry.phone }}">{{ inquiry.phone }}</a></td>
+                  <td data-label="Email"><a href="mailto:{{ inquiry.email }}">{{ inquiry.email }}</a></td>
+                  <td class="time-cell" data-label="Time">{{ inquiry.timestamp }}</td>
+                  <td class="view-cell"><span class="view-pill">View</span></td>
+                </tr>
+                {% else %}
+                <tr class="empty-row"><td colspan="5" class="empty">No enquiries yet. New messages from the website will appear here.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="empty hidden" id="noMatch">No enquiries match this filter or search.</div>
+        </section>
+
+        <!-- UPLOAD -->
+        <section id="upload-section" class="panel hidden">
+          <div class="panel__head"><h1>Upload Image <span class="count"><span class="js-gallery-count">{{ images|length }}</span> photos</span></h1></div>
+          <div class="mini-stats">
+            <div class="mini"><small>Photos live</small><b class="js-gallery-count">{{ images|length }}</b></div>
+            <div class="mini"><small>Best size</small><b>1600 x 1066 px</b></div>
+            <div class="mini"><small>Max file size</small><b>5 MB</b></div>
+            <div class="mini"><small>Formats</small><b>JPG, PNG, WEBP</b></div>
+          </div>
+          <div class="up-grid">
+            <div>
+              <form id="uploadForm" class="uploader">
+                <label class="dropzone" id="dropzone" for="imageInput">
+                  <span class="dz-icon"><svg viewBox="0 0 24 24"><path d="M12 16V5M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span>
+                  <strong>Drag and drop a photo here</strong>
+                  <small>or click to browse. JPG, PNG or WEBP.</small>
+                  <input type="file" name="image" id="imageInput" accept="image/*" required />
+                </label>
+                <div class="preview hidden" id="preview">
+                  <img id="previewImg" alt="Selected photo preview" />
+                  <div><b id="previewName"></b><small id="previewMeta"></small>
+                    <div class="progress"><i id="progressBar"></i></div></div>
+                  <button type="button" class="link-btn" id="clearFile">Remove</button>
+                </div>
+                <div class="up-foot">
+                  <span class="hint">New photos appear on your website gallery straight away.</span>
+                  <button class="btn btn--cobalt" type="submit" id="uploadBtn" disabled>Upload photo</button>
+                </div>
+                <div id="uploadMessage" role="status"></div>
+              </form>
+            </div>
+            <aside class="tips-card">
+              <h3>Photos that bring in guests</h3>
+              <ul>
+                <li><span class="tip-ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/></svg></span><div><b>Shoot in landscape</b>Wide photos, about 1600 px across, fill the website gallery best.</div></li>
+                <li><span class="tip-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></svg></span><div><b>Use daylight</b>Open the curtains and turn on the lights before you take the shot.</div></li>
+                <li><span class="tip-ic"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></span><div><b>Keep files small</b>Under 5 MB loads fast on mobile phones.</div></li>
+                <li><span class="tip-ic"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/></svg></span><div><b>Show the whole stay</b>Rooms, entrance, bathroom and views help guests decide.</div></li>
+              </ul>
+            </aside>
+          </div>
+
+          <h3 class="sec-title">Your gallery <small class="note" style="margin:0"><span class="js-gallery-count">{{ images|length }}</span> live on the website</small></h3>
+          <div class="empty {% if images %}hidden{% endif %}" id="galleryEmpty">No photos yet. Upload your first photo above.</div>
+          <div class="gallery" id="gallery">
+            {% for image in images %}
+            <div class="image-container" id="img-{{ image }}">
+              <div class="thumb"><img src="{{ url_for('uploaded_file', filename=image) }}" alt="Gallery Image" /></div>
+              <div class="image-meta"><span title="{{ image }}">{{ image }}</span>
+                <button class="btn btn--danger" type="button" onclick="deleteImage('{{ image }}')">Delete</button></div>
+            </div>
             {% endfor %}
-          </select>
-          <input class="input" type="text" name="price" id="price" placeholder="New Price" aria-label="New price" />
-          <button class="btn btn--cobalt" type="submit">Update Price</button>
-        </form>
-        <p id="response-message"></p>
-        <!-- JSON response message will be shown here -->
-      </section>
+          </div>
+        </section>
+
+        <!-- ROOMS -->
+        <section id="rooms-section" class="panel hidden">
+          <div class="panel__head"><h1>Room Price</h1></div>
+          <p class="note">Pick a room card or use the form. Changes are saved straight away and show on your website.</p>
+          <div class="mini-stats">
+            <div class="mini"><small>Room types</small><b id="rsCount">0</b></div>
+            <div class="mini"><small>Lowest price</small><b id="rsLow">-</b></div>
+            <div class="mini"><small>Highest price</small><b id="rsHigh">-</b></div>
+            <div class="mini"><small>Average price</small><b id="rsAvg">-</b></div>
+          </div>
+          <div class="room-grid" id="roomGrid">
+            {% for room in rooms %}
+            <button type="button" class="room-card" data-id="{{ room.id }}" data-price="{{ room.price or '' }}">
+              <span class="room-card__icon"><svg viewBox="0 0 24 24"><path d="M3 18V8M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.5"/></svg></span>
+              <span class="room-card__name">{{ room.name }}</span>
+              <span class="room-card__price"><small>Current price</small><b class="js-price">{% if room.price %}₹{{ room.price }}{% else %}Not set{% endif %}</b><em>per night</em></span>
+            </button>
+            {% endfor %}
+          </div>
+
+          <div class="editor">
+            <div class="price-card">
+              <h3>Update rate</h3>
+              <form id="price-form" class="price-form">
+                <label>Room
+                  <select class="input" name="room_id" id="room_id" aria-label="Room">
+                    {% for room in rooms %}
+                    <option value="{{ room.id }}">{{ room.name }}</option>
+                    {% endfor %}
+                  </select>
+                </label>
+                <div class="current-line"><span>Current price</span><b id="currentPrice">Not set</b></div>
+                <label>New price
+                  <div class="money"><span>₹</span><input class="input" type="text" name="price" id="price" inputmode="numeric" autocomplete="off" placeholder="New Price" aria-label="New price" /></div>
+                </label>
+                <div class="chips" aria-label="Quick adjust">
+                  <button type="button" class="chip" data-pct="-10">-10%</button>
+                  <button type="button" class="chip" data-pct="-5">-5%</button>
+                  <button type="button" class="chip" data-pct="5">+5%</button>
+                  <button type="button" class="chip" data-pct="10">+10%</button>
+                  <button type="button" class="chip" data-pct="20">+20%</button>
+                </div>
+                <div class="diff hidden" id="diff"></div>
+                <button class="btn btn--cobalt" type="submit" id="priceBtn">Update Price</button>
+                <p id="response-message" role="status"></p>
+                <!-- JSON response message will be shown here -->
+              </form>
+            </div>
+            <aside class="tips-card">
+              <h3>Smart pricing tips</h3>
+              <ul>
+                <li><span class="tip-ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><div><b>Plan for the season</b>Raise rates for festivals and holidays, lower them in quiet weeks.</div></li>
+                <li><span class="tip-ic"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4v16"/></svg></span><div><b>Use round numbers</b>Prices like 1500 are easier for guests to remember.</div></li>
+                <li><span class="tip-ic"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/></svg></span><div><b>Change in small steps</b>Use the quick buttons to move a price by 5% or 10%.</div></li>
+                <li><span class="tip-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><b>Review every month</b>Compare your rates with enquiries to see what works.</div></li>
+              </ul>
+            </aside>
+          </div>
+        </section>
+      </main>
     </div>
 
     <script>
-      document
-        .getElementById("price-form")
-        .addEventListener("submit", function (event) {
-          event.preventDefault(); // Prevent form from reloading the page
+      (function () {
+        const form = document.getElementById("price-form");
+        const sel = document.getElementById("room_id");
+        const input = document.getElementById("price");
+        const diff = document.getElementById("diff");
+        const curEl = document.getElementById("currentPrice");
+        const btn = document.getElementById("priceBtn");
+        const msg = document.getElementById("response-message");
+        const cards = Array.from(document.querySelectorAll(".room-card"));
+        const fmt = (n) => "₹" + Number(n).toLocaleString("en-IN");
+        const num = (v) => parseFloat(String(v || "").replace(/[^0-9.]/g, ""));
+        const cardFor = (id) => cards.find((c) => c.dataset.id === String(id));
 
-          let formData = new FormData(this);
+        function current() {
+          const c = cardFor(sel.value);
+          const v = c ? num(c.dataset.price) : NaN;
+          return isNaN(v) ? null : v;
+        }
+        function updateDiff() {
+          const cur = current(), v = num(input.value);
+          if (!v) { diff.classList.add("hidden"); return; }
+          diff.classList.remove("hidden");
+          if (cur === null) { diff.className = "diff same"; diff.textContent = "New price will be " + fmt(v); return; }
+          const pct = ((v - cur) / cur) * 100;
+          diff.className = "diff " + (pct > 0 ? "up" : pct < 0 ? "down" : "same");
+          diff.textContent = fmt(cur) + " to " + fmt(v) + " (" + (pct > 0 ? "+" : "") + pct.toFixed(1) + "%)";
+        }
+        function updateStats() {
+          const p = cards.map((c) => num(c.dataset.price)).filter((v) => !isNaN(v));
+          const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+          set("rsCount", cards.length);
+          set("rsLow", p.length ? fmt(Math.min(...p)) : "-");
+          set("rsHigh", p.length ? fmt(Math.max(...p)) : "-");
+          set("rsAvg", p.length ? fmt(Math.round(p.reduce((a, b) => a + b, 0) / p.length)) : "-");
+        }
+        function refresh() {
+          const c = cardFor(sel.value), cur = current();
+          cards.forEach((x) => x.classList.toggle("is-selected", x === c));
+          curEl.textContent = cur === null ? "Not set" : fmt(cur);
+          updateDiff();
+          updateStats();
+        }
+        function countUp(el, from, to) {
+          const t0 = performance.now(), dur = 700;
+          (function step(t) {
+            const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+            el.textContent = fmt(Math.round(from + (to - from) * e));
+            if (k < 1) requestAnimationFrame(step);
+          })(t0);
+        }
 
-          fetch("{{ url_for('update_price') }}", {
-            method: "POST",
-            body: formData,
+        cards.forEach((c) => c.addEventListener("click", () => { sel.value = c.dataset.id; refresh(); input.focus(); }));
+        sel.addEventListener("change", refresh);
+        input.addEventListener("input", updateDiff);
+        document.querySelectorAll(".chip").forEach((ch) =>
+          ch.addEventListener("click", () => {
+            const cur = current();
+            if (cur === null) { input.focus(); return; }
+            input.value = Math.round(cur * (1 + Number(ch.dataset.pct) / 100));
+            updateDiff();
           })
+        );
+        refresh();
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form from reloading the page
+          let formData = new FormData(this);
+          const newPrice = num(input.value), old = current(), card = cardFor(sel.value);
+          btn.classList.add("is-loading");
+          fetch("{{ url_for('update_price') }}", { method: "POST", body: formData })
             .then((response) => response.json())
             .then((data) => {
-              let messageElement = document.getElementById("response-message");
               if (data.success) {
-                messageElement.style.color = "green";
-                messageElement.textContent = data.success;
+                msg.className = "ok";
+                msg.textContent = data.success;
+                if (card && newPrice) {
+                  card.dataset.price = newPrice;
+                  countUp(card.querySelector(".js-price"), old || 0, newPrice);
+                  card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash");
+                }
+                input.value = "";
+                refresh();
               } else {
-                messageElement.style.color = "red";
-                messageElement.textContent = data.error;
+                msg.className = "err";
+                msg.textContent = data.error;
               }
             })
-            .catch((error) => console.error("Error:", error));
+            .catch((error) => console.error("Error:", error))
+            .finally(() => btn.classList.remove("is-loading"));
         });
+      })();
     </script>
 
     <script>
+      // Greeting + date
+      (function () {
+        const now = new Date();
+        const h = now.getHours();
+        const part = h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
+        document.getElementById("greet").textContent = part + ", Admin";
+        document.getElementById("today").textContent = now.toLocaleDateString("en-IN", {
+          weekday: "long", day: "numeric", month: "long", year: "numeric",
+        });
+      })();
+
       // Load the last viewed section from localStorage
       document.addEventListener("DOMContentLoaded", function () {
-        let lastSection = "inquiry";
+        let lastSection = "overview";
         try {
-          lastSection = localStorage.getItem("selectedSection") || "inquiry";
+          lastSection = localStorage.getItem("selectedSection") || "overview";
         } catch (e) {}
         showSection(lastSection);
       });
 
+      // Overview: count the numbers up each time the tab opens
+      function animateOverview() {
+        if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        document.querySelectorAll("#overview-section .stat b").forEach(function (el) {
+          if (el.dataset.running === "1") return;
+          const target = parseInt(el.textContent, 10);
+          if (isNaN(target) || String(target) !== el.textContent.trim() || target === 0) return;
+          el.dataset.running = "1";
+          const t0 = performance.now(), dur = 900;
+          (function step(t) {
+            const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+            el.textContent = Math.round(target * e);
+            if (k < 1) requestAnimationFrame(step);
+            else { el.textContent = target; el.dataset.running = "0"; }
+          })(t0);
+        });
+      }
+
       function showSection(section) {
-        if (!document.getElementById(section + "-section")) section = "inquiry";
-        ["inquiry", "upload", "rooms"].forEach(function (name) {
+        if (!document.getElementById(section + "-section")) section = "overview";
+        ["overview", "inquiry", "upload", "rooms"].forEach(function (name) {
           document.getElementById(name + "-section").classList.add("hidden");
         });
         document
@@ -151,55 +447,107 @@
         try {
           localStorage.setItem("selectedSection", section);
         } catch (e) {}
+        if (section === "overview") animateOverview();
+        window.scrollTo({ top: 0 });
       }
 
       // Filter the enquiry table
       document.getElementById("inquirySearch").addEventListener("input", function () {
         let q = this.value.trim().toLowerCase();
         document.querySelectorAll("#inquiryBody tr:not(.empty-row)").forEach(function (row) {
-          row.style.display = row.textContent.toLowerCase().includes(q) ? "" : "none";
+          row.style.display = (row.textContent + " " + (row.dataset.message || "")).toLowerCase().includes(q) ? "" : "none";
         });
       });
 
-      document
-        .getElementById("uploadForm")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
+      function syncGallery() {
+        const n = document.querySelectorAll("#gallery .image-container").length;
+        document.querySelectorAll(".js-gallery-count").forEach((el) => (el.textContent = n));
+        document.getElementById("galleryEmpty").classList.toggle("hidden", n > 0);
+      }
 
-          let formData = new FormData();
-          formData.append(
-            "image",
-            document.getElementById("imageInput").files[0]
-          );
+      function addGalleryCard(filename) {
+        const card = document.createElement("div");
+        card.className = "image-container";
+        card.id = "img-" + filename;
+        const thumb = document.createElement("div");
+        thumb.className = "thumb";
+        const img = document.createElement("img");
+        img.src = "/uploads/" + filename;
+        img.alt = "Gallery Image";
+        thumb.appendChild(img);
+        const meta = document.createElement("div");
+        meta.className = "image-meta";
+        const name = document.createElement("span");
+        name.textContent = filename;
+        const del = document.createElement("button");
+        del.type = "button";
+        del.className = "btn btn--danger";
+        del.textContent = "Delete";
+        del.addEventListener("click", () => deleteImage(filename));
+        meta.append(name, del);
+        card.append(thumb, meta);
+        document.getElementById("gallery").prepend(card);
+      }
 
-          fetch("{{ url_for('upload_image') }}", {
-            method: "POST",
-            body: formData,
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                document.getElementById("uploadMessage").innerHTML =
-                  "Image uploaded successfully!";
-                setTimeout(() => {
-                  document.getElementById("uploadMessage").innerHTML = "";
-                }, 3000);
+      (function () {
+        const input = document.getElementById("imageInput");
+        const dz = document.getElementById("dropzone");
+        const form = document.getElementById("uploadForm");
+        const preview = document.getElementById("preview");
+        const bar = document.getElementById("progressBar");
+        const btn = document.getElementById("uploadBtn");
+        const msg = document.getElementById("uploadMessage");
+        const size = (b) => (b > 1048576 ? (b / 1048576).toFixed(1) + " MB" : Math.round(b / 1024) + " KB");
 
-                let newImage = document.createElement("div");
-                newImage.classList.add("image-container");
-                newImage.id = "img-" + data.filename;
-                newImage.innerHTML = `
-                        <img src="/uploads/${data.filename}" alt="Gallery Image">
-                        <button class="btn btn--danger" type="button" onclick="deleteImage('${data.filename}')">Delete</button>
-                    `;
-                document.getElementById("gallery").appendChild(newImage);
-                document.getElementById("uploadForm").reset();
-              } else {
-                document.getElementById("uploadMessage").innerHTML = data.error;
-              }
-            })
-            .catch((error) => console.error("Error:", error));
+        function showFile(f) {
+          if (!f) return clearFile();
+          document.getElementById("previewImg").src = URL.createObjectURL(f);
+          document.getElementById("previewName").textContent = f.name;
+          document.getElementById("previewMeta").textContent = size(f.size);
+          bar.style.width = "0";
+          btn.disabled = false;
+          preview.classList.remove("hidden");
+        }
+        function clearFile() { input.value = ""; preview.classList.add("hidden"); bar.style.width = "0"; btn.disabled = true; }
+        function say(text, cls) { msg.className = cls; msg.textContent = text; }
+
+        input.addEventListener("change", () => showFile(input.files[0]));
+        document.getElementById("clearFile").addEventListener("click", clearFile);
+        ["dragenter", "dragover"].forEach((e) => dz.addEventListener(e, (ev) => { ev.preventDefault(); dz.classList.add("is-over"); }));
+        ["dragleave", "drop"].forEach((e) => dz.addEventListener(e, (ev) => { ev.preventDefault(); dz.classList.remove("is-over"); }));
+        dz.addEventListener("drop", (ev) => {
+          const files = ev.dataTransfer.files;
+          if (files && files.length) { input.files = files; showFile(files[0]); }
         });
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const file = input.files[0];
+          if (!file) return say("Choose a photo first.", "err");
+          let formData = new FormData();
+          formData.append("image", file);
+          btn.classList.add("is-loading");
+          const xhr = new XMLHttpRequest();
+          xhr.open("POST", "{{ url_for('upload_image') }}");
+          xhr.upload.onprogress = (e) => { if (e.lengthComputable) bar.style.width = (e.loaded / e.total) * 100 + "%"; };
+          xhr.onload = function () {
+            btn.classList.remove("is-loading");
+            let data = {};
+            try { data = JSON.parse(xhr.responseText); } catch (e) {}
+            if (data.success) {
+              bar.style.width = "100%";
+              say("Image uploaded successfully!", "ok");
+              addGalleryCard(data.filename);
+              syncGallery();
+              setTimeout(() => { clearFile(); msg.textContent = ""; msg.className = ""; }, 2500);
+            } else {
+              say(data.error || "Upload failed. Please try again.", "err");
+            }
+          };
+          xhr.onerror = function () { btn.classList.remove("is-loading"); say("Network error. Please try again.", "err"); };
+          xhr.send(formData);
+        });
+      })();
 
       function deleteImage(filename) {
         if (!confirm("Are you sure you want to delete this image?")) return;
@@ -212,11 +560,10 @@
           .then((data) => {
             if (data.success) {
               // Handle cases where filename has special characters
-              let imgContainer = document.querySelector(
-                `[id="img-${filename}"]`
-              );
+              let imgContainer = document.querySelector(`[id="img-${filename}"]`);
               if (imgContainer) {
-                imgContainer.remove();
+                imgContainer.classList.add("removing");
+                setTimeout(() => { imgContainer.remove(); syncGallery(); }, 250);
               } else {
                 console.error("Element not found:", `img-${filename}`);
               }
@@ -226,6 +573,265 @@
           })
           .catch((error) => console.error("Error:", error));
       }
+    </script>
+    <div class="modal hidden" id="enqModal" role="dialog" aria-modal="true" aria-labelledby="mName">
+      <div class="modal__box">
+        <button type="button" class="modal__x" id="mClose" aria-label="Close">&times;</button>
+        <div class="modal__head">
+          <span class="avatar" id="mAvatar"></span>
+          <div><h3 id="mName"></h3><small id="mTime"></small></div>
+        </div>
+        <div class="modal__grid">
+          <div><small>Phone number</small><a id="mPhone" href="#"></a></div>
+          <div><small>Email</small><a id="mEmail" href="#"></a></div>
+        </div>
+        <div class="modal__msg"><small>Message</small><p id="mMsg"></p></div>
+        <div class="modal__actions">
+          <a class="btn btn--cobalt" id="mCall" href="#">Call now</a>
+          <a class="btn btn--brass" id="mMail" href="#">Reply by email</a>
+          <button type="button" class="btn btn--soft" id="mCopy">Copy phone</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const modal = document.getElementById("enqModal");
+        const $ = (id) => document.getElementById(id);
+        let lastFocus = null;
+
+        function openEnquiry(el) {
+          const d = el.dataset;
+          lastFocus = el;
+          if (window.onEnquiryOpened) window.onEnquiryOpened(el);
+          $("mAvatar").textContent = (d.name || "?").charAt(0).toUpperCase();
+          $("mName").textContent = d.name || "Unknown";
+          $("mTime").textContent = d.time ? "Received " + d.time : "";
+          $("mPhone").textContent = d.phone || "Not given";
+          $("mEmail").textContent = d.email || "Not given";
+          $("mPhone").href = d.phone ? "tel:" + d.phone : "#";
+          $("mEmail").href = d.email ? "mailto:" + d.email : "#";
+          $("mCall").href = d.phone ? "tel:" + d.phone : "#";
+          $("mMail").href = d.email ? "mailto:" + d.email : "#";
+          $("mMsg").textContent = d.message || "No message.";
+          $("mCopy").textContent = "Copy phone";
+          $("mCopy").dataset.phone = d.phone || "";
+          modal.classList.remove("hidden");
+          document.body.classList.add("modal-open");
+          $("mClose").focus();
+        }
+        function closeModal() {
+          modal.classList.add("hidden");
+          document.body.classList.remove("modal-open");
+          if (lastFocus) lastFocus.focus();
+        }
+
+        document.addEventListener("click", function (e) {
+          const row = e.target.closest(".enq-open");
+          if (row && !e.target.closest("a")) openEnquiry(row);
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
+          if ((e.key === "Enter" || e.key === " ") && e.target.classList && e.target.classList.contains("enq-open")) {
+            e.preventDefault();
+            openEnquiry(e.target);
+          }
+        });
+        modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
+        $("mClose").addEventListener("click", closeModal);
+        $("mCopy").addEventListener("click", function () {
+          const v = this.dataset.phone;
+          if (!v) return;
+          const done = () => { this.textContent = "Copied!"; };
+          if (navigator.clipboard) navigator.clipboard.writeText(v).then(done, done);
+          else done();
+        });
+      })();
+    </script>
+    <script>
+      (function () {
+        const body = document.getElementById("inquiryBody");
+        const rows = Array.from(body.querySelectorAll("tr.enq-row"));
+        const $ = (id) => document.getElementById(id);
+        const set = (id, v) => { const el = $(id); if (el) el.textContent = v; };
+        const KEY = "readEnq";
+        let read = new Set();
+        try { read = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch (e) {}
+        const save = () => { try { localStorage.setItem(KEY, JSON.stringify(Array.from(read))); } catch (e) {} };
+        const keyOf = (el) => (el.dataset.time || "") + "|" + (el.dataset.phone || "");
+        const parse = (s) => {
+          if (!s) return null;
+          let d = new Date(s);
+          if (isNaN(d)) d = new Date(String(s).replace(" ", "T"));
+          return isNaN(d) ? null : d;
+        };
+        const day0 = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        const today0 = day0(new Date());
+        const ageDays = (d) => Math.round((today0 - day0(d)) / 86400000);
+        const rel = (d) => {
+          if (!d) return "";
+          const m = Math.floor((Date.now() - d) / 60000);
+          if (m < 1) return "Just now";
+          if (m < 60) return m + " min ago";
+          const h = Math.floor(m / 60);
+          if (h < 24) return h + (h === 1 ? " hour ago" : " hours ago");
+          const n = ageDays(d);
+          return n === 1 ? "Yesterday" : n + " days ago";
+        };
+
+        rows.forEach((r) => {
+          r._d = parse(r.dataset.time);
+          const t = r.querySelector(".time-cell");
+          if (t && r._d) { const s = document.createElement("small"); s.className = "rel"; s.textContent = rel(r._d); t.appendChild(s); }
+        });
+
+        function paint(r) {
+          const isNew = !read.has(keyOf(r));
+          r.classList.toggle("is-new", isNew);
+          const w = r.querySelector(".who-cell");
+          let pill = w.querySelector(".new-pill");
+          if (isNew && !pill) { pill = document.createElement("span"); pill.className = "new-pill"; pill.textContent = "New"; w.appendChild(pill); }
+          if (!isNew && pill) pill.remove();
+        }
+
+        function stats() {
+          const inDays = (r, n) => r._d && ageDays(r._d) >= 0 && ageDays(r._d) < n;
+          set("iqTotal", rows.length);
+          set("iqToday", rows.filter((r) => inDays(r, 1)).length);
+          set("iqWeek", rows.filter((r) => inDays(r, 7)).length);
+          set("iqUnread", rows.filter((r) => !read.has(keyOf(r))).length);
+        }
+
+        function attention() {
+          const ul = $("attnList");
+          ul.innerHTML = "";
+          const list = rows
+            .filter((r) => !read.has(keyOf(r)))
+            .sort((a, b) => (b._d ? b._d.getTime() : 0) - (a._d ? a._d.getTime() : 0))
+            .slice(0, 4);
+          if (!list.length) {
+            const li = document.createElement("li");
+            li.className = "empty";
+            li.textContent = "All caught up. You have opened every enquiry.";
+            ul.appendChild(li);
+            return;
+          }
+          list.forEach((r) => {
+            const li = document.createElement("li");
+            li.className = "enq-open";
+            li.tabIndex = 0;
+            li.setAttribute("role", "button");
+            ["name", "phone", "email", "message", "time"].forEach((k) => { li.dataset[k] = r.dataset[k] || ""; });
+            const av = document.createElement("span");
+            av.className = "avatar";
+            av.textContent = (r.dataset.name || "?").charAt(0).toUpperCase();
+            const box = document.createElement("div");
+            const st = document.createElement("strong");
+            st.textContent = r.dataset.name || "Unknown";
+            const p = document.createElement("p");
+            p.textContent = r.dataset.message || "No message.";
+            box.append(st, p);
+            const t = document.createElement("time");
+            t.textContent = rel(r._d) || r.dataset.time || "";
+            li.append(av, box, t);
+            ul.appendChild(li);
+          });
+        }
+
+        function latest() {
+          const box = $("latestBox");
+          box.innerHTML = "";
+          const r = rows.slice().sort((a, b) => (b._d ? b._d.getTime() : 0) - (a._d ? a._d.getTime() : 0))[0];
+          if (!r) {
+            const e = document.createElement("div");
+            e.className = "empty";
+            e.textContent = "Your newest enquiry will appear here with quick reply buttons.";
+            box.appendChild(e);
+            set("latestCap", "");
+            return;
+          }
+          const d = r.dataset;
+          set("latestCap", rel(r._d) || d.time || "");
+          const head = document.createElement("div");
+          head.className = "spot__head";
+          const av = document.createElement("span");
+          av.className = "avatar";
+          av.textContent = (d.name || "?").charAt(0).toUpperCase();
+          const who = document.createElement("div");
+          const nm = document.createElement("strong");
+          nm.textContent = d.name || "Unknown";
+          const sub = document.createElement("small");
+          sub.textContent = [d.phone, d.email].filter(Boolean).join("  |  ");
+          who.append(nm, sub);
+          head.append(av, who);
+
+          const msg = document.createElement("p");
+          msg.className = "spot__msg";
+          msg.textContent = d.message || "No message.";
+
+          const acts = document.createElement("div");
+          acts.className = "spot__actions";
+          if (d.phone) {
+            const call = document.createElement("a");
+            call.className = "btn btn--cobalt";
+            call.href = "tel:" + d.phone;
+            call.textContent = "Call now";
+            acts.appendChild(call);
+          }
+          if (d.email) {
+            const mail = document.createElement("a");
+            mail.className = "btn btn--brass";
+            const body = "Hello " + (d.name || "") + ",\n\nThank you for contacting Sri Shakthi. We have received your enquiry and will be happy to help.\n\nRegards,\nSri Shakthi";
+            mail.href = "mailto:" + d.email + "?subject=" + encodeURIComponent("Your enquiry at Sri Shakthi") + "&body=" + encodeURIComponent(body);
+            mail.textContent = "Quick reply";
+            acts.appendChild(mail);
+          }
+          const view = document.createElement("button");
+          view.type = "button";
+          view.className = "btn btn--soft enq-open";
+          ["name", "phone", "email", "message", "time"].forEach((k) => { view.dataset[k] = d[k] || ""; });
+          view.textContent = "View details";
+          acts.appendChild(view);
+          box.append(head, msg, acts);
+        }
+
+        let filter = "all", sort = "new";
+        function apply() {
+          const q = $("inquirySearch").value.trim().toLowerCase();
+          const sorted = rows.slice().sort((a, b) => {
+            const x = a._d ? a._d.getTime() : 0, y = b._d ? b._d.getTime() : 0;
+            return sort === "new" ? y - x : x - y;
+          });
+          let shown = 0;
+          sorted.forEach((r) => {
+            body.appendChild(r);
+            let ok = true;
+            if (filter === "today") ok = !!r._d && ageDays(r._d) === 0;
+            else if (filter === "week") ok = !!r._d && ageDays(r._d) >= 0 && ageDays(r._d) < 7;
+            else if (filter === "unread") ok = !read.has(keyOf(r));
+            if (ok && q) ok = (r.textContent + " " + (r.dataset.message || "")).toLowerCase().includes(q);
+            r.style.display = ok ? "" : "none";
+            if (ok) shown++;
+          });
+          $("noMatch").classList.toggle("hidden", shown > 0 || !rows.length);
+        }
+        function refresh() { rows.forEach(paint); stats(); attention(); latest(); apply(); }
+
+        document.querySelectorAll(".fchip").forEach((c) =>
+          c.addEventListener("click", () => {
+            filter = c.dataset.f;
+            document.querySelectorAll(".fchip").forEach((x) => x.classList.toggle("is-on", x === c));
+            apply();
+          })
+        );
+        $("sortSel").addEventListener("change", function () { sort = this.value; apply(); });
+        $("inquirySearch").addEventListener("input", apply);
+
+        window.onEnquiryOpened = function (el) { read.add(keyOf(el)); save(); refresh(); };
+        $("markAll").addEventListener("click", () => { rows.forEach((r) => read.add(keyOf(r))); save(); refresh(); });
+
+        refresh();
+      })();
     </script>
     <script>
       function showLogoutOverlay(event) {

@@ -1,56 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>Sri Shakthi - Admin Login</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/ram-logo.png') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" />
-  </head>
-  <body>
-    <main class="login-page">
-      <div class="login-card">
-        <div class="mark"><img src="{{ url_for('static', filename='images/ram-logo.png') }}" alt="Sri Shakthi" /></div>
-        <h1>Admin sign in</h1>
-        <p class="sub">Manage enquiries, photos and room prices.</p>
-
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="flash-messages">
-          {% for category, message in messages %}
-          <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
-          {% endfor %}
-        </div>
-        {% endif %}
-        {% endwith %}
-
-        <form id="loginForm" method="post" onsubmit="showLoading(event)">
-          <label>Username
-            <input class="input" type="text" name="username" autocomplete="username" required />
-          </label>
-          <label>Password
-            <input class="input" type="password" name="password" autocomplete="current-password" required />
-          </label>
-          <button class="btn btn--cobalt" type="submit">Sign in</button>
-        </form>
-      </div>
-    </main>
-
-    <div class="overlay" id="overlay" role="status" aria-live="polite">
-      <div class="message"><span class="spinner"></span>Authenticating...</div>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Sri Shakthi - Admin Login</title>
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/ram-logo.png') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" />
+</head>
+<body>
+<main class="login-page">
+  <section class="login-art" aria-hidden="true">
+    <div class="brand-row">
+      <img src="{{ url_for('static', filename='images/ram-logo.png') }}" alt="" />
+      Sri Shakthi
     </div>
+    <div>
+      <h2>Welcome back to your control room.</h2>
+      <p>Everything you need to look after your guests and your website.</p>
+      <ul>
+        <li>Read and answer guest enquiries</li>
+        <li>Keep the photo gallery fresh</li>
+        <li>Update room prices instantly</li>
+      </ul>
+    </div>
+  </section>
 
-    <script>
-      function showLoading(event) {
-        event.preventDefault();
-        document.getElementById("overlay").style.display = "flex";
+  <section class="login-side">
+    <div class="login-card">
+      <div class="mark"><img src="{{ url_for('static', filename='images/ram-logo.png') }}" alt="Sri Shakthi" /></div>
+      <h1>Admin sign in</h1>
+      <p class="sub">Manage enquiries, photos and room prices.</p>
 
-        setTimeout(function () {
-          document.getElementById("overlay").style.display = "none";
-          document.getElementById("loginForm").submit();
-        }, 1500);
-      }
-    </script>
-  </body>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% endwith %}
+
+      <form id="loginForm" method="post" onsubmit="showLoading(event)">
+        <label>Username
+          <input class="input" type="text" name="username" autocomplete="username" required />
+        </label>
+        <label>Password
+          <input class="input" type="password" name="password" autocomplete="current-password" required />
+        </label>
+        <button class="btn btn--cobalt" type="submit">Sign in</button>
+      </form>
+      <p class="login-foot">Only authorised staff can sign in. If you have lost access, contact the site owner.</p>
+    </div>
+  </section>
+</main>
+
+<div class="overlay" id="overlay" role="status" aria-live="polite">
+  <div class="auth-loader">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path class="shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+    <span class="sr-only">Logging in</span>
+  </div>
+</div>
+
+<script>
+function showLoading(event) {
+  event.preventDefault();
+  var form = document.getElementById("loginForm");
+  if (form.dataset.busy) return;
+  form.dataset.busy = "1";
+
+  var overlay = document.getElementById("overlay");
+  overlay.style.visibility = "visible";
+  overlay.style.opacity = "1";
+
+  // Show "Logging in..." for a moment, then sign in
+  setTimeout(function () {
+    form.submit();
+  }, 1500);
+}
+
+// If the person comes back with the Back button, hide the message again
+window.addEventListener("pageshow", function (e) {
+  if (e.persisted) {
+    var overlay = document.getElementById("overlay");
+    overlay.style.visibility = "hidden";
+    overlay.style.opacity = "0";
+    delete document.getElementById("loginForm").dataset.busy;
+  }
+});
+</script>
+</body>
 </html>
