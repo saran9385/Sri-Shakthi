@@ -1,83 +1,131 @@
+# # from app import app, db
+# # from models import Room
+
+# # # Create the database tables (only needed once)
+# # with app.app_context():
+# #     db.create_all()  # Ensure tables are created
+
+# #     # Add room details
+# #     room1 = Room(name="Classic Rooms", description="Enjoy a luxurious and relaxing stay in our classic rooms with premium amenities in the heart of Kanyakumari", price=150.0, image_url="https://img.freepik.com/free-photo/3d-rendering-beautiful-luxury-dark-wood-european-classic-bedroom-suite-hotel_105762-2164.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid")
+# #     room2 = Room(name="Double BedRooms", description="Experience urban elegance and modern comfort in our spacious double bedrooms.", price=100.0, image_url="https://github.com/WebDesignMastery/RayalPark_25-12-23/blob/main/assets/room-1.jpg?raw=true")
+# #     room3 = Room(name="Budget Rooms", description="Comfortable and affordable, our budget rooms are perfect for a cozy stay with loved ones.", price=100.0, image_url="https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid")
+# #     room4 = Room(name="Family Rooms", description="Experience urban elegance and modern comfort in our spacious family rooms.", price=100.0, image_url="https://img.freepik.com/premium-photo/traditional-thai-style-wooden-bedroom_251764-581.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid")
+# #     r oom5 = Room(name="Simple Rooms", description="Cozy and comfortable, our simple rooms are perfect for a relaxing stay", price=100.0, image_url="https://img.freepik.com/free-photo/bedroom-interior_53876-32151.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid")
+    
+
+# #     # Add to the session and commit
+# #     # db.session.add(room1)
+# #     db.session.add(room5)
+# #     db.session.commit()
+
+# #     print("Rooms added successfully!")
+
+
+# # from app import app, db
+# # from models import Inquiry  # Ensure 'Inquiry' is the correct model name for your 'inquiry' table
+
+# # with app.app_context():
+# #     # Delete all records from the inquiry table
+# #     db.session.query(Inquiry).delete()
+# #     db.session.commit()
+
+# #     print("All data from the 'inquiry' table has been deleted successfully!")
 # from app import app, db
 # from models import Room
 
-# # Create the database tables (only needed once)
+# # Make sure you are in app context
 # with app.app_context():
-#     db.create_all()  # Ensure tables are created
+#     rooms_data = [
+#         {
+#             "name": "Classic Rooms",
+#             "description": "Enjoy a luxurious and relaxing stay in our classic rooms with premium amenities in the heart of Kanyakumari",
+#             "price": 0.0,
+#             "image_url": "https://img.freepik.com/free-photo/3d-rendering-beautiful-luxury-dark-wood-european-classic-bedroom-suite-hotel_105762-2164.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid"
+#         },
+#         {
+#             "name": "Double BedRooms",
+#             "description": "Experience urban elegance and modern comfort in our spacious double bedrooms.",
+#             "price": 0.0,
+#             "image_url": "https://github.com/WebDesignMastery/RayalPark_25-12-23/blob/main/assets/room-1.jpg?raw=true"
+#         },
+#         {
+#             "name": "Budget Rooms",
+#             "description": "Comfortable and affordable, our budget rooms are perfect for a cozy stay with loved ones.",
+#             "price": 0.0,
+#             "image_url": "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid"
+#         },
+#         {
+#             "name": "Family Rooms",
+#             "description": "Experience urban elegance and modern comfort in our spacious family rooms.",
+#             "price": 0.0,
+#             "image_url": "https://img.freepik.com/premium-photo/traditional-thai-style-wooden-bedroom_251764-581.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid"
+#         },
+#         {
+#             "name": "Simple Rooms",
+#             "description": "Cozy and comfortable, our simple rooms are perfect for a relaxing stay",
+#             "price": 0.0,
+#             "image_url": "https://img.freepik.com/free-photo/bedroom-interior_53876-32151.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid"
+#         }
+#     ]
 
-#     # Add room details
-#     room1 = Room(name="Classic Rooms", description="Enjoy a luxurious and relaxing stay in our classic rooms with premium amenities in the heart of Kanyakumari", price=150.0, image_url="https://img.freepik.com/free-photo/3d-rendering-beautiful-luxury-dark-wood-european-classic-bedroom-suite-hotel_105762-2164.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid")
-#     room2 = Room(name="Double BedRooms", description="Experience urban elegance and modern comfort in our spacious double bedrooms.", price=100.0, image_url="https://github.com/WebDesignMastery/RayalPark_25-12-23/blob/main/assets/room-1.jpg?raw=true")
-#     room3 = Room(name="Budget Rooms", description="Comfortable and affordable, our budget rooms are perfect for a cozy stay with loved ones.", price=100.0, image_url="https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid")
-#     room4 = Room(name="Family Rooms", description="Experience urban elegance and modern comfort in our spacious family rooms.", price=100.0, image_url="https://img.freepik.com/premium-photo/traditional-thai-style-wooden-bedroom_251764-581.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid")
-#     r oom5 = Room(name="Simple Rooms", description="Cozy and comfortable, our simple rooms are perfect for a relaxing stay", price=100.0, image_url="https://img.freepik.com/free-photo/bedroom-interior_53876-32151.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid")
+#     for room in rooms_data:
+#         existing_room = Room.query.filter_by(name=room['name']).first()
+#         if not existing_room:
+#             new_room = Room(
+#                 name=room['name'],
+#                 description=room['description'],
+#                 price=room['price'],
+#                 image_url=room['image_url']
+#             )
+#             db.session.add(new_room)
     
-
-#     # Add to the session and commit
-#     # db.session.add(room1)
-#     db.session.add(room5)
 #     db.session.commit()
-
 #     print("Rooms added successfully!")
 
-
-# from app import app, db
-# from models import Inquiry  # Ensure 'Inquiry' is the correct model name for your 'inquiry' table
-
-# with app.app_context():
-#     # Delete all records from the inquiry table
-#     db.session.query(Inquiry).delete()
-#     db.session.commit()
-
-#     print("All data from the 'inquiry' table has been deleted successfully!")
 from app import app, db
 from models import Room
 
-# Make sure you are in app context
-with app.app_context():
-    rooms_data = [
-        {
-            "name": "Classic Rooms",
-            "description": "Enjoy a luxurious and relaxing stay in our classic rooms with premium amenities in the heart of Kanyakumari",
-            "price": 0.0,
-            "image_url": "https://img.freepik.com/free-photo/3d-rendering-beautiful-luxury-dark-wood-european-classic-bedroom-suite-hotel_105762-2164.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid"
-        },
-        {
-            "name": "Double BedRooms",
-            "description": "Experience urban elegance and modern comfort in our spacious double bedrooms.",
-            "price": 0.0,
-            "image_url": "https://github.com/WebDesignMastery/RayalPark_25-12-23/blob/main/assets/room-1.jpg?raw=true"
-        },
-        {
-            "name": "Budget Rooms",
-            "description": "Comfortable and affordable, our budget rooms are perfect for a cozy stay with loved ones.",
-            "price": 0.0,
-            "image_url": "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid"
-        },
-        {
-            "name": "Family Rooms",
-            "description": "Experience urban elegance and modern comfort in our spacious family rooms.",
-            "price": 0.0,
-            "image_url": "https://img.freepik.com/premium-photo/traditional-thai-style-wooden-bedroom_251764-581.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid"
-        },
-        {
-            "name": "Simple Rooms",
-            "description": "Cozy and comfortable, our simple rooms are perfect for a relaxing stay",
-            "price": 0.0,
-            "image_url": "https://img.freepik.com/free-photo/bedroom-interior_53876-32151.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid"
-        }
-    ]
+rooms_data = [
+    {
+        "name": "Non AC Double Bedroom",
+        "description": "Simple, clean and comfortable non-AC room for two guests, ideal for a budget-friendly stay in Kanyakumari.",
+        "price": 0.0,
+        "image_url": "https://img.freepik.com/free-photo/bedroom-interior_53876-32151.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+    },
+    {
+        "name": "AC Double Bedroom",
+        "description": "Air-conditioned double bedroom with modern comfort, perfect for couples and small groups.",
+        "price": 0.0,
+        "image_url": "https://github.com/WebDesignMastery/RayalPark_25-12-23/blob/main/assets/room-1.jpg?raw=true",
+    },
+    {
+        "name": "AC Quadruple Bedroom",
+        "description": "Spacious air-conditioned room that comfortably fits up to four guests, great for families.",
+        "price": 0.0,
+        "image_url": "https://img.freepik.com/premium-photo/traditional-thai-style-wooden-bedroom_251764-581.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+    },
+    {
+        "name": "Non AC Quadruple Bedroom",
+        "description": "Roomy non-AC room for up to four guests, a comfortable and affordable choice for groups and families.",
+        "price": 0.0,
+        "image_url": "https://img.freepik.com/free-photo/interior-modern-comfortable-hotel-room_1232-1822.jpg?ga=GA1.1.654617352.1727958446&semt=ais_hybrid",
+    },
+]
 
-    for room in rooms_data:
-        existing_room = Room.query.filter_by(name=room['name']).first()
-        if not existing_room:
-            new_room = Room(
-                name=room['name'],
-                description=room['description'],
-                price=room['price'],
-                image_url=room['image_url']
-            )
-            db.session.add(new_room)
-    
+with app.app_context():
+    new_names = [r["name"] for r in rooms_data]
+
+    # Remove every room that is not one of the 4 new types
+    removed = Room.query.filter(~Room.name.in_(new_names)).delete(synchronize_session=False)
+
+    for data in rooms_data:
+        room = Room.query.filter_by(name=data["name"]).first()
+        if room:
+            # Already exists: refresh text and image, keep the price you set
+            room.description = data["description"]
+            room.image_url = data["image_url"]
+        else:
+            db.session.add(Room(**data))
+
     db.session.commit()
-    print("Rooms added successfully!")
+    print(f"Removed {removed} old room(s). Rooms updated successfully!")
